@@ -2,6 +2,122 @@
 # yarn lockfile v1
 
 
+"@antv/dom-util@^2.0.1":
+  version "2.0.1"
+  resolved "http://192.168.0.250:8090/@antv%2fdom-util/-/dom-util-2.0.1.tgz#45cf6deaa3726c60fe4340e6df3fe9f0c5fd72ea"
+  integrity sha1-Rc9t6qNybGD+Q0Dm3z/p8MX9cuo=
+
+"@antv/event-emitter@^0.1.1", "@antv/event-emitter@~0.1.0":
+  version "0.1.1"
+  resolved "http://192.168.0.250:8090/@antv%2fevent-emitter/-/event-emitter-0.1.1.tgz#5e6cae4206af0e37eb2431fc3cd9416f8d8cd06c"
+  integrity sha1-XmyuQgavDjfrJDH8PNlBb42M0Gw=
+
+"@antv/g-base@^0.3.29":
+  version "0.3.29"
+  resolved "http://192.168.0.250:8090/@antv%2fg-base/-/g-base-0.3.29.tgz#c5f332440b03173a64fcf504f1143fd51c99f635"
+  integrity sha1-xfMyRAsDFzpk/PUE8RQ/1RyZ9jU=
+  dependencies:
+    "@antv/event-emitter" "^0.1.1"
+    "@antv/g-math" "^0.1.1"
+    "@antv/matrix-util" "^2.0.4"
+    "@antv/path-util" "~2.0.5"
+    "@antv/util" "~2.0.0"
+    "@types/d3-timer" "^1.0.9"
+    d3-ease "^1.0.5"
+    d3-interpolate "^1.3.2"
+    d3-timer "^1.0.9"
+
+"@antv/g-canvas@^0.3.29":
+  version "0.3.29"
+  resolved "http://192.168.0.250:8090/@antv%2fg-canvas/-/g-canvas-0.3.29.tgz#065858db91d150c3d992b74102b44ea8b2c3cf36"
+  integrity sha1-BlhY25HRUMPZkrdBArROqLLDzzY=
+  dependencies:
+    "@antv/g-base" "^0.3.29"
+    "@antv/g-math" "^0.1.1"
+    "@antv/gl-matrix" "~2.7.1"
+    "@antv/path-util" "~2.0.3-beta.1"
+    "@antv/util" "~2.0.0"
+
+"@antv/g-math@^0.1.1":
+  version "0.1.1"
+  resolved "http://192.168.0.250:8090/@antv%2fg-math/-/g-math-0.1.1.tgz#3a00ec607b34c4c5de2b8ad25069b25c1f59626a"
+  integrity sha1-OgDsYHs0xMXeK4rSUGmyXB9ZYmo=
+  dependencies:
+    "@antv/gl-matrix" "~2.7.1"
+    "@antv/util" "~2.0.0"
+
+"@antv/g6@^3.3.7":
+  version "3.3.7"
+  resolved "http://192.168.0.250:8090/@antv%2fg6/-/g6-3.3.7.tgz#29843c8de30e1482820647d7cd55938e1393c8d3"
+  integrity sha1-KYQ8jeMOFIKCBkfXzVWTjhOTyNM=
+  dependencies:
+    "@antv/dom-util" "^2.0.1"
+    "@antv/event-emitter" "~0.1.0"
+    "@antv/g-base" "^0.3.29"
+    "@antv/g-canvas" "^0.3.29"
+    "@antv/g-math" "^0.1.1"
+    "@antv/hierarchy" "^0.6.1"
+    "@antv/matrix-util" "^2.0.4"
+    "@antv/path-util" "^2.0.3"
+    "@antv/scale" "^0.2.0"
+    "@antv/util" "~2.0.5"
+    d3-force "^2.0.1"
+    dagre "^0.8.5"
+    lodash "^4.17.15"
+    numericjs "^1.2.6"
+
+"@antv/gl-matrix@^2.7.1", "@antv/gl-matrix@~2.7.1":
+  version "2.7.1"
+  resolved "http://192.168.0.250:8090/@antv%2fgl-matrix/-/gl-matrix-2.7.1.tgz#acb8e37f7ab3df01345aba4372d7942be42eba14"
+  integrity sha1-rLjjf3qz3wE0WrpDcteUK+QuuhQ=
+
+"@antv/hierarchy@^0.6.1":
+  version "0.6.1"
+  resolved "http://192.168.0.250:8090/@antv%2fhierarchy/-/hierarchy-0.6.1.tgz#da81fa1544cd4e3ff5ec3f9601fbf8142f61ef2c"
+  integrity sha1-2oH6FUTNTj/17D+WAfv4FC9h7yw=
+  dependencies:
+    "@antv/util" "~1.3.1"
+
+"@antv/matrix-util@^2.0.4":
+  version "2.0.4"
+  resolved "http://192.168.0.250:8090/@antv%2fmatrix-util/-/matrix-util-2.0.4.tgz#13a6e08c936a37ee70eee2bc714d6206b209bc70"
+  integrity sha1-E6bgjJNqN+5w7uK8cU1iBrIJvHA=
+  dependencies:
+    "@antv/gl-matrix" "^2.7.1"
+    "@antv/util" "~2.0.0"
+    tslib "^1.10.0"
+
+"@antv/path-util@^2.0.3", "@antv/path-util@~2.0.3-beta.1", "@antv/path-util@~2.0.5":
+  version "2.0.5"
+  resolved "http://192.168.0.250:8090/@antv%2fpath-util/-/path-util-2.0.5.tgz#8c755d15a1a28c9489632aeccccccf975b90b1a0"
+  integrity sha1-jHVdFaGijJSJYyrszMzPl1uQsaA=
+  dependencies:
+    "@antv/util" "~2.0.0"
+    tslib "^1.10.0"
+
+"@antv/scale@^0.2.0":
+  version "0.2.3"
+  resolved "http://192.168.0.250:8090/@antv%2fscale/-/scale-0.2.3.tgz#d334b36ecb3e1b6d9e7d656fab935dc7b8b02c3c"
+  integrity sha1-0zSzbss+G22efWVvq5Ndx7iwLDw=
+  dependencies:
+    "@antv/util" "~2.0.3"
+    moment "^2.24.0"
+    tslib "^1.10.0"
+
+"@antv/util@~1.3.1":
+  version "1.3.1"
+  resolved "http://192.168.0.250:8090/@antv%2futil/-/util-1.3.1.tgz#30a34b201ff9126ec0d58c72c8166a9c3e644ccd"
+  integrity sha1-MKNLIB/5Em7A1YxyyBZqnD5kTM0=
+  dependencies:
+    "@antv/gl-matrix" "^2.7.1"
+
+"@antv/util@~2.0.0", "@antv/util@~2.0.3", "@antv/util@~2.0.5":
+  version "2.0.6"
+  resolved "http://192.168.0.250:8090/@antv%2futil/-/util-2.0.6.tgz#cf0a97de31d4594ab53f49ebcdb7dee85d3e600e"
+  integrity sha1-zwqX3jHUWUq1P0nrzbfe6F0+YA4=
+  dependencies:
+    tslib "^1.10.0"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "http://192.168.0.250:8090/@babel%2fcode-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
@@ -837,6 +953,11 @@
   version "1.1.1"
   resolved "http://192.168.0.250:8090/@types%2fcolor-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha1-HBJhu+qhCoBVu8XYq4S3sq/IRqA=
+
+"@types/d3-timer@^1.0.9":
+  version "1.0.9"
+  resolved "http://192.168.0.250:8090/@types%2fd3-timer/-/d3-timer-1.0.9.tgz#aed1bde0cf18920d33f5d44839d73de393633fd3"
+  integrity sha1-rtG94M8Ykg0z9dRIOdc945NjP9M=
 
 "@types/events@*":
   version "3.0.0"
@@ -2625,6 +2746,55 @@ cyclist@^1.0.1:
   resolved "http://192.168.0.250:8090/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
+d3-color@1:
+  version "1.4.0"
+  resolved "http://192.168.0.250:8090/d3-color/-/d3-color-1.4.0.tgz#89c45a995ed773b13314f06460df26d60ba0ecaf"
+  integrity sha1-icRamV7Xc7EzFPBkYN8m1gug7K8=
+
+d3-dispatch@1:
+  version "1.0.6"
+  resolved "http://192.168.0.250:8090/d3-dispatch/-/d3-dispatch-1.0.6.tgz#00d37bcee4dd8cd97729dd893a0ac29caaba5d58"
+  integrity sha1-ANN7zuTdjNl3Kd2JOgrCnKq6XVg=
+
+d3-ease@^1.0.5:
+  version "1.0.6"
+  resolved "http://192.168.0.250:8090/d3-ease/-/d3-ease-1.0.6.tgz#ebdb6da22dfac0a22222f2d4da06f66c416a0ec0"
+  integrity sha1-69ttoi36wKIiIvLU2gb2bEFqDsA=
+
+d3-force@^2.0.1:
+  version "2.0.1"
+  resolved "http://192.168.0.250:8090/d3-force/-/d3-force-2.0.1.tgz#31750eee8c43535301d571195bf9683beda534e2"
+  integrity sha1-MXUO7oxDU1MB1XEZW/loO+2lNOI=
+  dependencies:
+    d3-dispatch "1"
+    d3-quadtree "1"
+    d3-timer "1"
+
+d3-interpolate@^1.3.2:
+  version "1.4.0"
+  resolved "http://192.168.0.250:8090/d3-interpolate/-/d3-interpolate-1.4.0.tgz#526e79e2d80daa383f9e0c1c1c7dcc0f0583e987"
+  integrity sha1-Um554tgNqjg/ngwcHH3MDwWD6Yc=
+  dependencies:
+    d3-color "1"
+
+d3-quadtree@1:
+  version "1.0.7"
+  resolved "http://192.168.0.250:8090/d3-quadtree/-/d3-quadtree-1.0.7.tgz#ca8b84df7bb53763fe3c2f24bd435137f4e53135"
+  integrity sha1-youE33u1N2P+PC8kvUNRN/TlMTU=
+
+d3-timer@1, d3-timer@^1.0.9:
+  version "1.0.10"
+  resolved "http://192.168.0.250:8090/d3-timer/-/d3-timer-1.0.10.tgz#dfe76b8a91748831b13b6d9c793ffbd508dd9de5"
+  integrity sha1-3+dripF0iDGxO22ceT/71QjdneU=
+
+dagre@^0.8.5:
+  version "0.8.5"
+  resolved "http://192.168.0.250:8090/dagre/-/dagre-0.8.5.tgz#ba30b0055dac12b6c1fcc247817442777d06afee"
+  integrity sha1-ujCwBV2sErbB/MJHgXRCd30Gr+4=
+  dependencies:
+    graphlib "^2.1.8"
+    lodash "^4.17.15"
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "http://192.168.0.250:8090/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
@@ -3778,6 +3948,13 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   version "4.2.3"
   resolved "http://192.168.0.250:8090/graceful-fs/-/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
   integrity sha1-ShL/G2A3bvCYYsIJPt2Qgyi+hCM=
+
+graphlib@^2.1.8:
+  version "2.1.8"
+  resolved "http://192.168.0.250:8090/graphlib/-/graphlib-2.1.8.tgz#5761d414737870084c92ec7b5dbcb0592c9d35da"
+  integrity sha1-V2HUFHN4cAhMkux7XbywWSydNdo=
+  dependencies:
+    lodash "^4.17.15"
 
 gzip-size@^5.0.0:
   version "5.1.1"
@@ -5143,6 +5320,11 @@ mkdirp@0.5.1, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "http://192.168.0.250:8090/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha1-DQVdU/UFKqZTyfbraLtdEr9cK1s=
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "http://192.168.0.250:8090/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -5378,6 +5560,11 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "http://192.168.0.250:8090/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
+
+numericjs@^1.2.6:
+  version "1.2.6"
+  resolved "http://192.168.0.250:8090/numericjs/-/numericjs-1.2.6.tgz#c0daf25c4bcb22e043bf83443f9f39e8b336798b"
+  integrity sha1-wNryXEvLIuBDv4NEP5856LM2eYs=
 
 oauth-sign@~0.9.0:
   version "0.9.0"
@@ -7521,7 +7708,7 @@ ts-pnp@^1.1.6:
   resolved "http://192.168.0.250:8090/ts-pnp/-/ts-pnp-1.1.6.tgz#389a24396d425a0d3162e96d2b4638900fdc289a"
   integrity sha1-OJokOW1CWg0xYultK0Y4kA/cKJo=
 
-tslib@^1.9.0:
+tslib@^1.10.0, tslib@^1.9.0:
   version "1.11.1"
   resolved "http://192.168.0.250:8090/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha1-6xXRKIJ/vuKEFUnhcfRe0zisfjU=
