@@ -1,5 +1,5 @@
 import { jsPlumb } from 'jsplumb'
-import { StartNode } from '../editor/nodes'
+import { StartNode, EffectNode, ConditionNode } from '../editor/nodes'
 import '../editor/index.less'
 export default {
   data() {
@@ -9,14 +9,25 @@ export default {
     const oneStartNode = new StartNode({
       name: 'item_left'
     })
-    const twoStartNode = new StartNode({
-      name: 'item_right'
-    })
-    this.nodes = [oneStartNode.render(), twoStartNode.render()]
+
+    const oneEffectNode = new EffectNode({ name: 'heheda' })
+
+    const oneConditionNode = new ConditionNode(
+      { name: 'dadada' },
+      { conditions: [1, 2, 3, 4, 5] }
+    )
+
+    this.nodes = [
+      oneStartNode.render(),
+      oneEffectNode.render(),
+      oneConditionNode.render()
+    ]
+
     this.$nextTick(() => {
       this.jsPlumb.ready(() => {
         oneStartNode.setPoint(this.jsPlumb)
-        twoStartNode.setPoint(this.jsPlumb)
+        oneEffectNode.setPoint(this.jsPlumb)
+        oneConditionNode.setPoint(this.jsPlumb)
         this.jsPlumb.setContainer('diagramContainer')
         this.jsPlumb.draggable(document.querySelectorAll('[draggable]'))
       })
