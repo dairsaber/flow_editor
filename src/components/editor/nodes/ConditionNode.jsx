@@ -1,15 +1,32 @@
 import { getClassName } from '../utils/cssNameSpace'
-import { ConditionNode } from './index'
+import { ConditionNode } from '../models'
+import { message } from 'ant-design-vue'
 export default {
   props: {
     config: ConditionNode
   },
-  methods: {
-    handleShow() {
-      const showFunc = this.config.on.show
-      showFunc && showFunc('dadada')
+  data() {
+    return {
+      //   conditions: []
+      ...this.config.data
     }
   },
+  methods: {
+    handleShow() {
+      this.config.addCondtion('heheda')
+      message.success('heheda')
+    }
+  },
+  //   watch: {
+  //     config: {
+  //       immediate: true,
+  //       handler(val) {
+  //         if (val) {
+  //           this.conditions = val.data.conditions
+  //         }
+  //       }
+  //     }
+  //   },
   render(h) {
     return h(
       'div',
@@ -19,11 +36,11 @@ export default {
       },
       [
         h('div', { class: 'header' }, '条件节点'),
-        (this.config.data.conditions || []).map((item, index) => {
+        (this.conditions || []).map((item, index) => {
           return h('div', { class: 'child' }, index)
         }),
         // 测试事件传输是否正常
-        <button onClick={this.handleShow}>heheda</button>
+        <button onClick={this.handleShow}>添加条件</button>
       ]
     )
   }

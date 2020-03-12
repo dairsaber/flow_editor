@@ -1,18 +1,18 @@
 export const defaultEndpoint = {
   paintStyle: {
-    strokeStyle: '#1e8151',
-    fill: '#1e8151',
-    fillStyle: '#1e8151',
+    strokeStyle: '#bf235d',
+    fill: '#bf235d',
+    fillStyle: '#bf235d',
     radius: 4,
     lineWidth: 2
   },
-  hoverPaintStyle: { stroke: 'blue' },
+  hoverPaintStyle: { fill: '#61B7CF' },
   connectorStyle: {
-    strokeWidth: 1,
+    strokeWidth: 2,
     stroke: '#61B7CF'
   },
   connectorHoverStyle: {
-    strokeWidth: 1,
+    strokeWidth: 2,
     stroke: 'red'
   }
 }
@@ -20,10 +20,9 @@ export const defaultAnchor = {
   connector: [
     'Flowchart',
     {
-      gap: 4,
       cornerRadius: 4,
       alwaysRespectStubs: true,
-      midpoint: 0.2
+      // midpoint: 0.2
     }
   ],
   anchor: 'Bottom',
@@ -52,7 +51,7 @@ export const defaultTargetPoint = {
   isTarget: true,
   paintStyle: {
     strokeStyle: '#1e8151',
-    fill: '#61B7CF',
+    fill: '#1e8151',
     fillStyle: '#1e8151',
     radius: 4,
     lineWidth: 2

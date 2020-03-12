@@ -1,48 +1,49 @@
 import { jsPlumb } from 'jsplumb'
-import { StartNode, ConditionNode } from '../editor/nodes'
+import { StartNode, ConditionNode,EndNode } from '../editor/models'
 import '../editor/index.less'
 export default {
   data() {
     return { jsPlumb: jsPlumb.getInstance(), nodes: [] }
   },
   mounted() {
-    const oneStartNode = new StartNode({
-      name: 'item_left'
+    const startNode = new StartNode({
+      name: 'start'
     })
-
-
-    const oneConditionNode = new ConditionNode(
+    const endNode = new EndNode({
+      name: 'end'
+    })
+    const conditionNode = new ConditionNode(
       {
         name: 'dadada',
         on: {
           //注册事件
-          show: str => {
-            alert(str)
-          }
         }
       }, //config
       { conditions: [1, 2, 3, 4, 5] } //data
     )
 
-    this.nodes = [
-      oneStartNode.render(),
-      oneConditionNode.render()
-    ]
+    this.nodes = [startNode.render(), conditionNode.render(),endNode.render()]
 
     this.$nextTick(() => {
       this.jsPlumb.ready(() => {
-        oneStartNode.setPoint(this.jsPlumb)
-        oneConditionNode.setPoint(this.jsPlumb)
+        startNode.setPoint(this.jsPlumb)
+        conditionNode.setPoint(this.jsPlumb),
+        endNode.setPoint(this.jsPlumb)
         this.jsPlumb.setContainer('diagramContainer')
-        this.jsPlumb.draggable(document.querySelectorAll('[draggable]'))
+        this.jsPlumb.draggable(document.querySelectorAll('[draggable]'), {
+          containment: 'diagramContainer',
+          grid: [10, 10]
+        })
       })
     })
   },
   methods: {},
   render() {
     return (
-      <div id="diagramContainer" style="height:800px">
-        {this.nodes}
+      <div style="height:800px;overflow:hidden">
+        <div id="diagramContainer" style="height:800px">
+          {this.nodes}
+        </div>
       </div>
     )
   }
