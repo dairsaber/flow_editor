@@ -1,4 +1,5 @@
-export const defaultEndpoint = {
+export const defaultSourceEndpoint = {
+  isSource: true,
   paintStyle: {
     strokeStyle: '#bf235d',
     fill: '#bf235d',
@@ -21,7 +22,7 @@ export const defaultAnchor = {
     'Flowchart',
     {
       cornerRadius: 4,
-      alwaysRespectStubs: true,
+      alwaysRespectStubs: true
       // midpoint: 0.2
     }
   ],
@@ -57,8 +58,4 @@ export const defaultTargetPoint = {
     lineWidth: 2
   },
   hoverPaintStyle: { stroke: 'blue' }
-}
-
-export function getEndPointConfig(conifg = {}) {
-  return { ...defaultEndpoint, ...conifg }
 }

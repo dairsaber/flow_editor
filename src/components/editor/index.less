@@ -1,53 +1,79 @@
 //202003091612
-#diagramContainer{
+//容器宽高 最好是20 的倍数
+@baseSize: 20px;
+.common202003091612 {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid rgb(139, 139, 139);
+}
+.hover202003091612{
+  border-color: rgb(255, 0, 0);
+}
+#diagramContainer {
   background-color: rgba(119, 136, 153, 0.342);
 }
 .start202003091612 {
-  position: absolute;
-  height: 25px;
-  width: 60px;
-  border: 1px solid grey;
+  &:hover{
+    .hover202003091612;
+  }
+  .common202003091612;
+  height: @baseSize*2;
+  width: @baseSize*3;
   border-radius: 13px;
   background-color: rgb(252, 248, 2);
   text-align: center;
 }
-.effect202003091612 {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  transform: rotate(45deg);
-  background-color: lightgreen;
-  .crop {
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    transform: skew(-20deg, -20deg);
-    background-color: #1abc9c;
+.join202003091612 {
+  &:hover{
+    .hover202003091612;
   }
+  .common202003091612;
+  height: @baseSize*2;
+  width: @baseSize*3;
+  border-radius: 13px;
+  background-color: rgb(255, 105, 46);
+  text-align: center;
+  
 }
 .condition202003091612 {
-  position: absolute;
+  &:hover{
+    .hover202003091612;
+  }
+  .common202003091612;
   background-color: grey;
-  width: 160px;
+  width: @baseSize*8;
   .header {
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
-    height: 20px;
+    height: @baseSize;
   }
-  .child{
-      height: 20px;
-      box-sizing: border-box;
-      border-bottom: 1px solid red;
+  .child {
+    height: @baseSize;
+    box-sizing: border-box;
+    border-bottom: 1px solid red;
   }
 }
 
 .end202003091612 {
-  position: absolute;
-  height: 25px;
-  width: 60px;
-  border: 1px solid grey;
+  &:hover{
+    .hover202003091612;
+  }
+  .common202003091612;
+  height: @baseSize*2;
+  width: @baseSize*3;
   border-radius: 13px;
   text-align: center;
   background-color: rgb(216, 92, 92);
+}
+.task202003091612 {
+  &:hover{
+    .hover202003091612;
+  }
+  .common202003091612;
+  background-color: white;
+  height: @baseSize*2;
+  width: @baseSize*8;
+  border-left: 5px solid goldenrod;
+  border-radius: 4px;
 }

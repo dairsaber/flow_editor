@@ -1,5 +1,5 @@
 import Node from './baseModel'
-import * as configTool  from '../config'
+import * as configTool from '../config'
 import Start from '../nodes/StartNode'
 export class StartNode extends Node {
   constructor(config, data) {
@@ -7,8 +7,9 @@ export class StartNode extends Node {
       data,
       endpoints: [
         {
-          anchor: { ...configTool.defaultAnchor },
-          endpoint: { isSource: true, ...configTool.defaultEndpoint }
+          id: 'Bottom',
+          anchor: configTool.defaultAnchor ,
+          endpoint:configTool.defaultSourceEndpoint 
         }
       ],
       type: 'start',

@@ -15,18 +15,19 @@ export class ConditionNode extends Node {
             anchor: 'Top',
             maxConnections: 1
           },
-          endpoint: configTool.getEndPointConfig({
+          endpoint: {
             ...configTool.defaultTargetPoint,
             dragAllowedWhenFull: false
-          })
+          }
         },
         ...conditions.map((item, index) => {
           return {
+            id: item.code,
             anchor: {
               ...configTool.defaultAnchor,
               anchor: [0, 0, 0, 0, 0, 10 + (index + 1) * 20]
             },
-            endpoint: configTool.getEndPointConfig({ isSource: true })
+            endpoint: configTool.defaultSourceEndpoint
           }
         })
       ],
@@ -36,18 +37,18 @@ export class ConditionNode extends Node {
   }
   addCondtion(condition) {
     this.data.conditions.push(condition)
-    this.addPoint()
+    this.addPoint(condition)
   }
-  addPoint() {
+  addPoint(condition) {
     const currentAnchor = [0, 0, 0, 0, 0, 10 + this.data.conditions.length * 20]
     this.jsPlumb.addEndpoint(
       this.name,
       {
         ...configTool.defaultAnchor,
-        uuid: `${this.name}${currentAnchor}`,
-        anchor: [0, 0, 0, 0, 0, 10 + this.data.conditions.length * 20]
+        uuid: `${this.name}.${condition.code}`,
+        anchor: currentAnchor
       },
-      configTool.getEndPointConfig({ isSource: true })
+      configTool.defaultSourceEndpoint
     )
   }
   render() {

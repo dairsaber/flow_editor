@@ -1,0 +1,127 @@
+{
+  "Id": "video_problem_flow",
+  "Version": 0,
+  "Title": "视频问题处置流程",
+  "Events": [
+    {
+      "Id": "the_start",
+      "Type": "StartEvent"
+    },
+    {
+      "Id": "the_end",
+      "Type": "EndEvent"
+    }
+  ],
+  "Gateways": [
+    {
+      "Id": "split_gateway_1",
+      "Type": "SplitGateway"
+    },
+    {
+      "Id": "split_gateway_2",
+      "Type": "SplitGateway"
+    },
+    {
+      "Id": "join_gateway",
+      "Type": "JoinGateway"
+    }
+  ],
+  "Tasks": [
+    {
+      "Id": "found_problem",
+      "Type": "UserTask",
+      "Name": "发现问题"
+    },
+    {
+      "Id": "first_review",
+      "Type": "UserTask",
+      "Name": "领导初审",
+      "Comments": [
+        {
+          "ActionName": "通过",
+          "IsDefault": true,
+          "IsValidateForm": true
+        },
+        {
+          "ActionName": "不通过",
+          "IsDefault": true
+        }
+      ],
+      "ExtendUserTask": {
+        "Route": {
+          "RouteType": "role.FixRoles",
+          "RoleIds": ["1"],
+          "IsHistoryRoute": true
+        }
+      }
+    },
+    {
+      "Id": "second_review",
+      "Type": "UserTask",
+      "Name": "领导复审"
+    },
+    {
+      "Id": "rectify_notice",
+      "Type": "UserTask",
+      "Name": "整改通知"
+    },
+    {
+      "Id": "feedback",
+      "Type": "UserTask",
+      "Name": "结果反馈"
+    },
+    {
+      "Id": "finish_disposal",
+      "Type": "UserTask",
+      "Name": "完成处置"
+    }
+  ],
+  "Transitions": [
+    {
+      "From": "the_start",
+      "To": "found_problem"
+    },
+    {
+      "From": "found_problem",
+      "To": "first_review"
+    },
+    {
+      "From": "first_review",
+      "To": "split_gateway_1"
+    },
+    {
+      "From": "split_gateway_1",
+      "Name": "通过",
+      "To": "second_review"
+    },
+    {
+      "From": "split_gateway_1",
+      "Name": "不通过",
+      "To": "the_end"
+    },
+    {
+      "From": "second_review",
+      "To": "split_gateway_2"
+    },
+    {
+      "From": "split_gateway_2",
+      "To": "rectify_notice"
+    },
+    {
+      "From": "split_gateway_2",
+      "To": "the_end"
+    },
+    {
+      "From": "rectify_notice",
+      "To": "feedback"
+    },
+    {
+      "From": "feedback",
+      "To": "finish_disposal"
+    },
+    {
+      "From": "finish_disposal",
+      "To": "the_end"
+    }
+  ]
+}

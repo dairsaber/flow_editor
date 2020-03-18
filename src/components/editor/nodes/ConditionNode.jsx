@@ -13,8 +13,8 @@ export default {
   },
   methods: {
     handleShow() {
-      this.config.addCondtion('heheda')
-      message.success('heheda')
+      this.config.addCondtion({ code: Date.now() })
+      message.success('添加节点成功')
     }
   },
   //   watch: {
@@ -36,8 +36,8 @@ export default {
       },
       [
         h('div', { class: 'header' }, '条件节点'),
-        (this.conditions || []).map((item, index) => {
-          return h('div', { class: 'child' }, index)
+        (this.conditions || []).map(item => {
+          return h('div', { class: 'child' }, item.code)
         }),
         // 测试事件传输是否正常
         <button onClick={this.handleShow}>添加条件</button>
