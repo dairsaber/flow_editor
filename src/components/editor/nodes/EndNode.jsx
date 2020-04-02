@@ -6,6 +6,19 @@ export default {
   },
   render() {
     const c = this.config
-    return <div draggable class={getClassName('end')} id={c.name}>结束</div>
+    const style = { left: `${c.position[0]}px`, top: `${c.position[1]}px` }
+    return (
+      <div
+        draggable
+        style={style}
+        onMouseup={({ target }) => {
+          c.changePosition(target.offsetLeft, target.offsetTop)
+        }}
+        class={getClassName('end')}
+        id={c.id}
+      >
+        结束
+      </div>
+    )
   }
 }

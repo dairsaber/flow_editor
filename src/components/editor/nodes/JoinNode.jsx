@@ -6,6 +6,19 @@ export default {
   },
   render() {
     const c = this.config
-    return <div draggable class={getClassName('join')} id={c.name}>聚合</div>
+    const style = { left: `${c.position[0]}px`, top: `${c.position[1]}px` }
+    return (
+      <div
+        style={style}
+        draggable
+        onMouseup={({ target }) => {
+          c.changePosition(target.offsetLeft, target.offsetTop)
+        }}
+        class={getClassName('join')}
+        id={c.id}
+      >
+        聚合
+      </div>
+    )
   }
 }

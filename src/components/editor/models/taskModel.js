@@ -7,13 +7,11 @@ export class TaskNode extends Node {
       data,
       endpoints: [
         {
-          id: 'Left',
-          anchor: { ...configTool.defaultAnchor, anchor: 'Left' },
+          anchor: { ...configTool.defaultAnchor, anchor: 'Top' },
           endpoint: configTool.defaultTargetPoint
         },
         {
-          id: 'Right',
-          anchor: { ...configTool.defaultAnchor, anchor: 'Right' },
+          anchor: { ...configTool.defaultAnchor, anchor: 'Bottom' },
           endpoint: configTool.defaultSourceEndpoint
         }
       ],

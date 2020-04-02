@@ -1,6 +1,8 @@
 import { getClassName } from '../utils/cssNameSpace'
 import { ConditionNode } from '../models'
 import { message } from 'ant-design-vue'
+import { jsPlumb } from 'jsplumb'
+
 export default {
   props: {
     config: ConditionNode
@@ -28,16 +30,37 @@ export default {
   //     }
   //   },
   render(h) {
+    const c = this.config
+    const style = { left: `${c.position[0]}px`, top: `${c.position[1]}px` }
     return h(
       'div',
       {
-        attrs: { id: this.config.name, draggable: true },
+        style: style,
+        attrs: { id: c.id, draggable: true },
         class: getClassName('condition')
       },
       [
-        h('div', { class: 'header' }, '条件节点'),
+        h(
+          'div',
+          {
+            class: 'header',
+            on: {
+              mouseup: ({ target }) => {
+                c.changePosition(target.offsetLeft, target.offsetTop)
+              },
+              dblclick:()=>{
+                jsPlumb.remove(c.id)
+              }
+            }
+          },
+          '条件节点'
+        ),
         (this.conditions || []).map(item => {
-          return h('div', { class: 'child' }, item.code)
+          return h(
+            'div',
+            { class: 'child', attrs: { code: item.code } },
+            item.code
+          )
         }),
         // 测试事件传输是否正常
         <button onClick={this.handleShow}>添加条件</button>

@@ -7,7 +7,6 @@ export class EndNode extends Node {
       data,
       endpoints: [
         {
-          id:"Top",
           anchor: { ...configTool.defaultAnchor, anchor: 'Top' },
           endpoint: configTool.defaultTargetPoint 
         }

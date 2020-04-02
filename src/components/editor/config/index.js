@@ -1,3 +1,14 @@
+// 基本连接线样式
+const connectorPaintStyle = {
+  strokeWidth: 2,
+  stroke: '#61B7CF'
+}
+
+// 鼠标悬浮在连接线上的样式
+const connectorHoverStyle = {
+  strokeWidth: 2,
+  stroke: 'red'
+}
 export const defaultSourceEndpoint = {
   isSource: true,
   paintStyle: {
@@ -8,23 +19,13 @@ export const defaultSourceEndpoint = {
     lineWidth: 2
   },
   hoverPaintStyle: { fill: '#61B7CF' },
-  connectorStyle: {
-    strokeWidth: 2,
-    stroke: '#61B7CF'
-  },
-  connectorHoverStyle: {
-    strokeWidth: 2,
-    stroke: 'red'
-  }
+  connectorStyle: connectorPaintStyle,
+  connectorHoverStyle: connectorHoverStyle
 }
 export const defaultAnchor = {
   connector: [
     'Flowchart',
-    {
-      cornerRadius: 4,
-      alwaysRespectStubs: true
-      // midpoint: 0.2
-    }
+    { gap: 5, cornerRadius: 5, alwaysRespectStubs: true }
   ],
   anchor: 'Bottom',
   maxConnections: -1,
@@ -57,5 +58,7 @@ export const defaultTargetPoint = {
     radius: 4,
     lineWidth: 2
   },
-  hoverPaintStyle: { stroke: 'blue' }
+  hoverPaintStyle: { stroke: 'blue' },
+  connectorStyle: connectorPaintStyle,
+  connectorHoverStyle: connectorHoverStyle
 }

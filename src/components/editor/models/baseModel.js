@@ -1,33 +1,42 @@
+/* eslint-disable no-debugger */
 import Vue from 'vue'
 
 export default class Node {
   $createElement = new Vue().$createElement
   position
-  id
   data
+  id
   endpoints
   type
   name
   on //存储节点事件处理方法的
-  jsPlumb
   points = []
+  context
   constructor(config = {}) {
-    this.position = config.position || [0, 0]
+    this.position = config.position || [300, 300]
     this.data = config.data
     this.endpoints = config.endpoints
     this.name = config.name
+    this.id = config.id
     this.type = config.type
     this.on = config.on || {}
+    this.context = config.context
   }
-  setPoint(jsPlumb) {
-    this.jsPlumb = jsPlumb
-    this.endpoints.forEach(({ id, anchor, endpoint }) => {
-      var point = jsPlumb.addEndpoint(
-        this.name,
-        { uuid: `${this.name}.${id}`, ...anchor },
-        endpoint
-      )
-      this.points.push(point)
+  setPoint() {
+    this.endpoints.forEach(({ code, anchor, endpoint }) => {
+      let uuid
+      if (code) {
+        uuid = `${this.id}.${code}`
+      } else if (endpoint.isSource) {
+        uuid = `${this.id}.from`
+      } else if (endpoint.isTarget) {
+        uuid = `${this.id}.to`
+      }
+      this.context.jsPlumb.addEndpoint(this.id, { uuid, ...anchor }, endpoint)
+      this.points.push(uuid)
     })
+  }
+  changePosition(x, y) {
+    this.position = [x, y]
   }
 }

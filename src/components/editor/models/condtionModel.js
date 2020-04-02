@@ -22,10 +22,10 @@ export class ConditionNode extends Node {
         },
         ...conditions.map((item, index) => {
           return {
-            id: item.code,
+            code: item.code,
             anchor: {
               ...configTool.defaultAnchor,
-              anchor: [0, 0, 0, 0, 0, 10 + (index + 1) * 20]
+              anchor: [1, 0, 1, 0, 0, 20 + (index + 1) * 40]
             },
             endpoint: configTool.defaultSourceEndpoint
           }
@@ -40,16 +40,18 @@ export class ConditionNode extends Node {
     this.addPoint(condition)
   }
   addPoint(condition) {
-    const currentAnchor = [0, 0, 0, 0, 0, 10 + this.data.conditions.length * 20]
+    const currentAnchor = [1, 0, 1, 0, 0, 10 + this.data.conditions.length * 40]
+    const uuid = `${this.id}.${condition.code}`
     this.jsPlumb.addEndpoint(
-      this.name,
+      this.id,
       {
         ...configTool.defaultAnchor,
-        uuid: `${this.name}.${condition.code}`,
+        uuid,
         anchor: currentAnchor
       },
       configTool.defaultSourceEndpoint
     )
+    this.points.push(uuid)
   }
   render() {
     return this.$createElement(Condition, { props: { config: this } })

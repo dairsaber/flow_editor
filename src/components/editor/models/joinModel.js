@@ -7,12 +7,10 @@ export class JoinNode extends Node {
       data,
       endpoints: [
         {
-          id: 'Bottom',
           anchor: configTool.defaultAnchor,
           endpoint: configTool.defaultSourceEndpoint
         },
         {
-          id: 'Top',
           anchor: { ...configTool.defaultAnchor, anchor: 'Top' },
           endpoint: configTool.defaultTargetPoint
         }

@@ -1,37 +1,22 @@
-import { jsPlumb } from 'jsplumb'
-import * as jsPlumbUtils from './utils/load'
-import { request } from './utils/request'
+import { Flow } from './utils/flow'
 import './index.less'
+const flow = new Flow()
 export default {
   data() {
     return {
-      jsPlumb: jsPlumb.getInstance(),
-      config: null,
-      nodes: [],
-      models: []
+      nodes: []
     }
   },
-  mounted() {
-    request('/flowData/VideoProblemFlowTest.json').then(({ data }) => {
-      // eslint-disable-next-line no-debugger
-      this.config = data
-      this.models = jsPlumbUtils.createNodesModel(data)
-      console.log("mounted -> this.models ", this.models )
-      
-      this.nodes = jsPlumbUtils.createNodes(this.models)
-      console.log("mounted -> this.nodes", this.nodes)
-      this.$nextTick(() => {
-        this.jsPlumb.ready(() => {
-          jsPlumbUtils.initEndpoints(this.jsPlumb, this.models)
-          jsPlumbUtils.registerOther(this.jsPlumb)
-        })
-      })
+  async mounted() {
+    await flow.loadData('/flowData/VideoProblemFlowTest.json')
+    this.nodes = flow.nodes
+    this.$nextTick(() => {
+      flow.mount()
     })
   },
   methods: {
     handleClick() {
-      console.log(this.jsPlumb)
-      console.log(this.models)
+      console.log(flow)
     }
   },
   render() {

@@ -7,9 +7,8 @@ export class StartNode extends Node {
       data,
       endpoints: [
         {
-          id: 'Bottom',
-          anchor: configTool.defaultAnchor ,
-          endpoint:configTool.defaultSourceEndpoint 
+          anchor: configTool.defaultAnchor,
+          endpoint: configTool.defaultSourceEndpoint
         }
       ],
       type: 'start',
