@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 import * as nodesModel from '../models'
-import { jsPlumb } from 'jsplumb'
 import { confirm } from './tips'
 //1
 export function createNodesModel(context, config = {}) {
-  const { Events = [], Gateways = [], Tasks = [] } = config
+  const { Events = [], Gateways = [], Tasks = [], Position = {} } = config
   // 事件节点模型
   const eventNodes = Events.reduce((container, item) => {
     const type = item.Type
@@ -13,12 +12,18 @@ export function createNodesModel(context, config = {}) {
     if (type === 'StartEvent') {
       return [
         ...container,
-        new nodesModel.StartNode({ id, context }, { meta: item })
+        new nodesModel.StartNode(
+          { id, type, cat: 'Events', context, position: Position[id] },
+          { meta: item }
+        )
       ]
     } else if (type === 'EndEvent') {
       return [
         ...container,
-        new nodesModel.EndNode({ id, context }, { meta: item })
+        new nodesModel.EndNode(
+          { id, type, context, cat: 'Events', position: Position[id] },
+          { meta: item }
+        )
       ]
     }
     return container
@@ -31,14 +36,17 @@ export function createNodesModel(context, config = {}) {
       return [
         ...container,
         new nodesModel.ConditionNode(
-          { id, context },
+          { id, context, type, cat: 'Gateways', position: Position[id] },
           { conditions: [{ code: '通过' }, { code: '不通过' }], meta: item }
         )
       ]
     } else if (type === 'JoinGateway') {
       return [
         ...container,
-        new nodesModel.JoinNode({ id, context }, { meta: item })
+        new nodesModel.JoinNode(
+          { id, context, type, cat: 'Gateways', position: Position[id] },
+          { meta: item }
+        )
       ]
     }
     return container
@@ -50,7 +58,10 @@ export function createNodesModel(context, config = {}) {
     if (type === 'UserTask') {
       return [
         ...container,
-        new nodesModel.TaskNode({ id, context }, { meta: item })
+        new nodesModel.TaskNode(
+          { id, type, context, cat: 'Tasks', position: Position[id] },
+          { meta: item }
+        )
       ]
     }
     return container
@@ -76,6 +87,7 @@ export function connectNodes(context, config) {
     context.jsPlumb.connect({
       uuids: [fromUuid, `${To}.to`]
     })
+    context.edges[`${fromUuid}|${To}.to`] = item
   })
 }
 //TODO 5 注册事件

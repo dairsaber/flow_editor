@@ -1,7 +1,7 @@
+/* eslint-disable no-debugger */
 import { getClassName } from '../utils/cssNameSpace'
 import { ConditionNode } from '../models'
 import { message } from 'ant-design-vue'
-import { jsPlumb } from 'jsplumb'
 
 export default {
   props: {
@@ -37,21 +37,19 @@ export default {
       {
         style: style,
         attrs: { id: c.id, draggable: true },
-        class: getClassName('condition')
+        class: getClassName('condition'),
+        on: {
+          mouseup: () => {
+            const target = document.querySelector(`#${c.id}`)
+            c.changePosition(target.offsetLeft, target.offsetTop)
+          }
+        }
       },
       [
         h(
           'div',
           {
-            class: 'header',
-            on: {
-              mouseup: ({ target }) => {
-                c.changePosition(target.offsetLeft, target.offsetTop)
-              },
-              dblclick:()=>{
-                jsPlumb.remove(c.id)
-              }
-            }
+            class: 'header'
           },
           '条件节点'
         ),

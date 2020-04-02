@@ -37,14 +37,6 @@ export const defaultAnchor = {
         length: 10,
         location: 1
       }
-    ],
-    [
-      'Arrow',
-      {
-        width: 10,
-        length: 10,
-        location: 0.5
-      }
     ]
   ]
 }

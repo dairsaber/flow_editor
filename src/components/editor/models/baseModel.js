@@ -12,6 +12,7 @@ export default class Node {
   on //存储节点事件处理方法的
   points = []
   context
+  cat
   constructor(config = {}) {
     this.position = config.position || [300, 300]
     this.data = config.data
@@ -21,6 +22,7 @@ export default class Node {
     this.type = config.type
     this.on = config.on || {}
     this.context = config.context
+    this.cat = config.cat
   }
   setPoint() {
     this.endpoints.forEach(({ code, anchor, endpoint }) => {

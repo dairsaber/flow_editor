@@ -8,7 +8,7 @@ export default {
     }
   },
   async mounted() {
-    await flow.loadData('/flowData/VideoProblemFlowTest.json')
+    await flow.loadData('/flowData/test.json')
     this.nodes = flow.nodes
     this.$nextTick(() => {
       flow.mount()
@@ -17,6 +17,7 @@ export default {
   methods: {
     handleClick() {
       console.log(flow)
+      console.log(flow.exportJson())
     }
   },
   render() {

@@ -1,11 +1,13 @@
+/* eslint-disable no-debugger */
 import { jsPlumb } from 'jsplumb'
 import * as jsPlumbUtils from './load'
 import { request } from './request'
+import { saveJSON } from './file'
 
 export class Flow {
   nodes = []
   models = []
-  edges = []
+  edges = {}
   config
   jsPlumb
   constructor() {
@@ -27,5 +29,24 @@ export class Flow {
         r()
       })
     })
+  }
+  exportJson() {
+    const { Id, Version, Title } = this.config
+    const otherInfo = this.models.reduce(
+      (prev, current) => {
+        const cat = current.cat
+        if (!prev[cat]) {
+          prev[cat] = []
+        }
+        prev[cat].push(current.data.meta)
+        prev.Position[current.id] = current.position
+        return prev
+      },
+      { Position: {} }
+    )
+    const Transitions = Object.values(this.edges)
+    const data = { Id, Version, Title, ...otherInfo, Transitions }
+    saveJSON(data, `${data.Title}.json`)
+    return data
   }
 }
