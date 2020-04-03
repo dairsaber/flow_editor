@@ -27,6 +27,7 @@
   border-radius: 13px;
   background-color: rgb(252, 248, 2);
   text-align: center;
+  box-sizing: border-box;
 }
 .join202003091612 {
   &:hover {
@@ -58,7 +59,21 @@
     border-bottom: 1px solid red;
   }
 }
-
+.gateway202003091612 {
+  &:hover {
+    border-left-color: rgb(31, 235, 31);
+    border-right-color: rgb(247, 78, 78);
+  }
+  .common202003091612;
+  background-color: white;
+  height: @baseSize*2;
+  width: @baseSize*6;
+  border-left: 5px solid lightgreen;
+  border-right: 5px solid lightcoral;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+}
 .end202003091612 {
   &:hover {
     .hover202003091612;

@@ -11,24 +11,36 @@ export default {
   },
   directives: { drop },
   async mounted() {
+    flow.registerListenner({
+      //监听节点移除
+      nodeRemove: this.handleNodeRemove
+    })
     await flow.loadData('/flowData/test.json')
-    this.nodes = flow.nodes
+    this.update()
     this.$nextTick(() => {
       flow.mount()
     })
   },
   methods: {
+    handleNodeRemove(model, node) {
+      console.log({ model, node })
+      //TODO 节点移除后要做的事情
+    },
     handleClick() {
       console.log(flow)
       console.log(flow.exportJson())
     },
+    //拖动添加节点
     onDrop(type, evt) {
-      console.log(type, evt)
       // flow
       const model = flow.createNode(type, evt)
+      this.update()
       this.$nextTick(() => {
         flow.registerNode(model)
       })
+    },
+    update() {
+      this.nodes = [...flow.nodes]
     }
   },
   render() {

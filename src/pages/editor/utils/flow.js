@@ -12,6 +12,7 @@ export class Flow {
   edges = {}
   config
   jsPlumb
+  events = {}
   constructor() {
     this.jsPlumb = jsPlumb.getInstance()
   }
@@ -27,8 +28,8 @@ export class Flow {
     return new Promise(r => {
       this.jsPlumb.ready(() => {
         jsPlumbUtils.registerEvents(this)
-        jsPlumbUtils.initEndpoints(this, this.models)
         jsPlumbUtils.registerOther(this)
+        jsPlumbUtils.initEndpoints(this, this.models)
         jsPlumbUtils.connectNodes(this, this.config)
         r()
       })
@@ -71,7 +72,7 @@ export class Flow {
             this,
             type,
             [offsetX, offsetY],
-            nodesModel.ConditionModel
+            nodesModel.GatewayModel
           )
         )
       case 'JoinGateway':
@@ -100,10 +101,13 @@ export class Flow {
       grid: GRID
     })
   }
+  registerListenner(obj = {}) {
+    this.events = obj
+  }
 }
 
 function createBaseNode(context, type, position, nodeClass) {
-  const meta = { id: guid(), type }
+  const meta = { id: `${type}_${guid()}`, type }
   const cat = NODE_TYPES_MAP[type].cat
   return new nodeClass({ ...meta, context, type, cat, position }, { meta })
 }

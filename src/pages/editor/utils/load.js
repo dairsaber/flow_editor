@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 import * as nodesModel from '../models'
-import {CONTAINER_ID,GRID} from '../config'
+import { CONTAINER_ID, GRID } from '../config'
 import { confirm } from './tips'
 //1
 export function createNodesModel(context, config = {}) {
@@ -36,9 +36,9 @@ export function createNodesModel(context, config = {}) {
     if (type === 'SplitGateway') {
       return [
         ...container,
-        new nodesModel.ConditionModel(
+        new nodesModel.GatewayModel(
           { id, context, type, cat: 'Gateways', position: Position[id] },
-          { conditions: [{ code: '通过' }, { code: '不通过' }], meta: item }
+          { meta: item }
         )
       ]
     } else if (type === 'JoinGateway') {
@@ -94,28 +94,34 @@ export function connectNodes(context, config) {
 //TODO 5 注册事件
 export function registerEvents(context) {
   //连接线连接时
-  context.jsPlumb.bind('connection', (info, origin) => {
-    console.log({ info, origin })
+  context.jsPlumb.bind('connection', info => {
+    addEdge(context, info.sourceEndpoint, info.targetEndpoint)
   })
   //断连接时
-  context.jsPlumb.bind('connectionDetached', (info, origin) => {
-    console.log({ info, origin })
+  context.jsPlumb.bind('connectionDetached', info => {
+    deleteEdge(
+      context,
+      info.sourceEndpoint.getUuid(),
+      info.targetEndpoint.getUuid()
+    )
   })
   // 单点击了连接线,
   context.jsPlumb.bind('dblclick', async conn => {
+    console.log({ conn })
     if (await confirm('删除提示', '确定删除此链接吗？')) {
       context.jsPlumb.deleteConnection(conn)
     }
   })
   // 改变线的连接节点
   context.jsPlumb.bind('connectionMoved', evt => {
-    console.log(
+    deleteEdge(
+      context,
       evt.originalSourceEndpoint.getUuid(),
       evt.originalTargetEndpoint.getUuid()
     )
   })
   context.jsPlumb.bind('contextmenu', function(component) {
-    console.log({ component })
+    // console.log({ component })
     window.component = component
   })
 }
@@ -128,4 +134,20 @@ export function registerOther(context) {
     containment: CONTAINER_ID,
     grid: GRID
   })
+}
+
+function deleteEdge(context, sourceUuid, targetUuid) {
+  delete context.edges[`${sourceUuid}|${targetUuid}`]
+}
+
+function addEdge(context, sourceEndpoint, targetEndpoint) {
+  const sourceUuid = sourceEndpoint.getUuid()
+  const targetUuid = targetEndpoint.getUuid()
+  const [sourceid, code] = sourceUuid.split('.')
+  const [targetId] = targetUuid.split('.')
+  let edge = { From: sourceid, To: targetId }
+  if (code.toLowerCase() !== 'from') {
+    edge.Name = code
+  }
+  context.edges[`${sourceUuid}|${targetUuid}`] = edge
 }

@@ -6,17 +6,19 @@ export default class BaseModel {
   position
   data
   id
-  endpoints
+  endpointsConfig
+  endpoints = []
   type
   name
   on //存储节点事件处理方法的
-  points = []
+  pointUuids = []
+
   context
   cat
   constructor(config = {}) {
     this.position = config.position || [300, 300]
     this.data = config.data
-    this.endpoints = config.endpoints
+    this.endpointsConfig = config.endpoints || []
     this.name = config.name
     this.id = config.id
     this.type = config.type
@@ -25,7 +27,7 @@ export default class BaseModel {
     this.cat = config.cat
   }
   setPoint() {
-    this.endpoints.forEach(({ code, anchor, endpoint }) => {
+    this.endpointsConfig.forEach(({ code, anchor, endpoint }) => {
       let uuid
       if (code) {
         uuid = `${this.id}.${code}`
@@ -34,8 +36,13 @@ export default class BaseModel {
       } else if (endpoint.isTarget) {
         uuid = `${this.id}.to`
       }
-      this.context.jsPlumb.addEndpoint(this.id, { uuid, ...anchor }, endpoint)
-      this.points.push(uuid)
+      const ep = this.context.jsPlumb.addEndpoint(
+        this.id,
+        { uuid, ...anchor },
+        endpoint
+      )
+      this.endpoints.push(ep)
+      this.pointUuids.push(uuid)
     })
   }
   changePosition(x, y) {

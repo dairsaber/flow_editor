@@ -3,7 +3,9 @@ import { getClassName } from '../utils/cssNameSpace'
 import { ConditionModel } from '../models'
 import { message } from 'ant-design-vue'
 
+import baseMixin from './baseNodeMixin'
 export default {
+  mixins: [baseMixin],
   props: {
     config: ConditionModel
   },
@@ -39,6 +41,7 @@ export default {
         attrs: { id: c.id, nodeDraggable: true },
         class: getClassName('condition'),
         on: {
+          dblclick: this.remove,
           mouseup: () => {
             const target = document.querySelector(`#${c.id}`)
             c.changePosition(target.offsetLeft, target.offsetTop)

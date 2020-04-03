@@ -1,6 +1,8 @@
 import { getClassName } from '../utils/cssNameSpace'
 import { StartModel } from '../models'
+import baseMixin from './baseNodeMixin'
 export default {
+  mixins: [baseMixin],
   props: {
     config: StartModel
   },
@@ -11,6 +13,7 @@ export default {
       <div
         style={style}
         nodeDraggable
+        onDblclick={this.remove}
         onMouseup={({ target }) => {
           c.changePosition(target.offsetLeft, target.offsetTop)
         }}
