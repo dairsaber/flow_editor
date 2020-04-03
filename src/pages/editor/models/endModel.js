@@ -1,7 +1,7 @@
-import Node from './baseModel'
+import BaseModel from './baseModel'
 import * as configTool from '../config'
 import End from '../nodes/EndNode'
-export class EndNode extends Node {
+export class EndModel extends BaseModel {
   constructor(config, data) {
     super({
       data,

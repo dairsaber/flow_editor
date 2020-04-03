@@ -29,7 +29,7 @@ export default {
         startNode.setPoint(this.jsPlumb)
         conditionNode.setPoint(this.jsPlumb), endNode.setPoint(this.jsPlumb)
         this.jsPlumb.setContainer('diagramContainer')
-        this.jsPlumb.draggable(document.querySelectorAll('[draggable]'), {
+        this.jsPlumb.draggable(document.querySelectorAll('[nodeDraggable]'), {
           containment: 'diagramContainer',
           grid: [10, 10]
         })

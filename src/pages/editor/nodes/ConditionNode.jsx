@@ -1,11 +1,11 @@
 /* eslint-disable no-debugger */
 import { getClassName } from '../utils/cssNameSpace'
-import { ConditionNode } from '../models'
+import { ConditionModel } from '../models'
 import { message } from 'ant-design-vue'
 
 export default {
   props: {
-    config: ConditionNode
+    config: ConditionModel
   },
   data() {
     return {
@@ -36,7 +36,7 @@ export default {
       'div',
       {
         style: style,
-        attrs: { id: c.id, draggable: true },
+        attrs: { id: c.id, nodeDraggable: true },
         class: getClassName('condition'),
         on: {
           mouseup: () => {

@@ -4,16 +4,21 @@
 .common202003091612 {
   position: absolute;
   box-sizing: border-box;
-  box-shadow: 0 15px 30px rgba(0,0,0,.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
-.hover202003091612{
+.hover202003091612 {
   border-color: rgb(255, 0, 0);
+}
+[nodeDraggable] {
+  user-select: none;
+  cursor: pointer;
 }
 #diagramContainer {
   background-color: rgba(119, 136, 153, 0.342);
+  position: relative;
 }
 .start202003091612 {
-  &:hover{
+  &:hover {
     .hover202003091612;
   }
   .common202003091612;
@@ -24,7 +29,7 @@
   text-align: center;
 }
 .join202003091612 {
-  &:hover{
+  &:hover {
     .hover202003091612;
   }
   .common202003091612;
@@ -33,10 +38,9 @@
   border-radius: 13px;
   background-color: rgb(255, 105, 46);
   text-align: center;
-  
 }
 .condition202003091612 {
-  &:hover{
+  &:hover {
     .hover202003091612;
   }
   .common202003091612;
@@ -56,7 +60,7 @@
 }
 
 .end202003091612 {
-  &:hover{
+  &:hover {
     .hover202003091612;
   }
   .common202003091612;
@@ -67,7 +71,7 @@
   background-color: rgb(216, 92, 92);
 }
 .task202003091612 {
-  &:hover{
+  &:hover {
     .hover202003091612;
   }
   .common202003091612;

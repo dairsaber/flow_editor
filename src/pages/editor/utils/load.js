@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-debugger */
 import * as nodesModel from '../models'
+import {CONTAINER_ID,GRID} from '../config'
 import { confirm } from './tips'
 //1
 export function createNodesModel(context, config = {}) {
@@ -12,7 +13,7 @@ export function createNodesModel(context, config = {}) {
     if (type === 'StartEvent') {
       return [
         ...container,
-        new nodesModel.StartNode(
+        new nodesModel.StartModel(
           { id, type, cat: 'Events', context, position: Position[id] },
           { meta: item }
         )
@@ -20,7 +21,7 @@ export function createNodesModel(context, config = {}) {
     } else if (type === 'EndEvent') {
       return [
         ...container,
-        new nodesModel.EndNode(
+        new nodesModel.EndModel(
           { id, type, context, cat: 'Events', position: Position[id] },
           { meta: item }
         )
@@ -35,7 +36,7 @@ export function createNodesModel(context, config = {}) {
     if (type === 'SplitGateway') {
       return [
         ...container,
-        new nodesModel.ConditionNode(
+        new nodesModel.ConditionModel(
           { id, context, type, cat: 'Gateways', position: Position[id] },
           { conditions: [{ code: '通过' }, { code: '不通过' }], meta: item }
         )
@@ -43,7 +44,7 @@ export function createNodesModel(context, config = {}) {
     } else if (type === 'JoinGateway') {
       return [
         ...container,
-        new nodesModel.JoinNode(
+        new nodesModel.JoinModel(
           { id, context, type, cat: 'Gateways', position: Position[id] },
           { meta: item }
         )
@@ -58,7 +59,7 @@ export function createNodesModel(context, config = {}) {
     if (type === 'UserTask') {
       return [
         ...container,
-        new nodesModel.TaskNode(
+        new nodesModel.TaskModel(
           { id, type, context, cat: 'Tasks', position: Position[id] },
           { meta: item }
         )
@@ -121,10 +122,10 @@ export function registerEvents(context) {
 //TODO 6 注册其他
 export function registerOther(context) {
   //设置容器
-  context.jsPlumb.setContainer('diagramContainer')
+  context.jsPlumb.setContainer(CONTAINER_ID)
   //注册节点可拖拽
-  context.jsPlumb.draggable(document.querySelectorAll('[draggable]'), {
-    containment: 'diagramContainer',
-    grid: [20, 20]
+  context.jsPlumb.draggable(document.querySelectorAll('[nodeDraggable]'), {
+    containment: CONTAINER_ID,
+    grid: GRID
   })
 }

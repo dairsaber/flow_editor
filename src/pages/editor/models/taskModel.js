@@ -1,7 +1,7 @@
-import Node from './baseModel'
+import BaseModel from './baseModel'
 import * as configTool from '../config'
 import Task from '../nodes/TaskNode'
-export class TaskNode extends Node {
+export class TaskModel extends BaseModel {
   constructor(config, data) {
     super({
       data,

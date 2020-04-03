@@ -1,9 +1,9 @@
-import Node from './baseModel'
+import BaseModel from './baseModel'
 import * as configTool from '../config'
 import Condition from '../nodes/ConditionNode'
 
 //条件节点
-export class ConditionNode extends Node {
+export class ConditionModel extends BaseModel {
   constructor(config, data) {
     const conditions = data.conditions || []
     super({

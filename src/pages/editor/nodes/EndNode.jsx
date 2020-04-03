@@ -1,23 +1,23 @@
 import { getClassName } from '../utils/cssNameSpace'
-import { JoinNode } from '../models'
+import { EndModel } from '../models'
 export default {
   props: {
-    config: JoinNode
+    config: EndModel
   },
   render() {
     const c = this.config
     const style = { left: `${c.position[0]}px`, top: `${c.position[1]}px` }
     return (
       <div
+        nodeDraggable
         style={style}
-        draggable
         onMouseup={({ target }) => {
           c.changePosition(target.offsetLeft, target.offsetTop)
         }}
-        class={getClassName('join')}
+        class={getClassName('end')}
         id={c.id}
       >
-        聚合
+        结束
       </div>
     )
   }

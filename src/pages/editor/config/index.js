@@ -1,3 +1,5 @@
+export const CONTAINER_ID = "diagramContainer"
+
 // 基本连接线样式
 const connectorPaintStyle = {
   strokeWidth: 2,
@@ -54,3 +56,17 @@ export const defaultTargetPoint = {
   connectorStyle: connectorPaintStyle,
   connectorHoverStyle: connectorHoverStyle
 }
+
+export const NODE_TYPES = [
+  { type: 'StartEvent', cat: 'Events', label: '开始' },
+  { type: 'EndEvent', cat: 'Events', label: '结束' },
+  { type: 'SplitGateway', cat: 'Gateways', label: '条件' },
+  { type: 'JoinGateway', cat: 'Gateways', label: '聚合' },
+  { type: 'UserTask', cat: 'Tasks', label: '任务' }
+]
+
+export const NODE_TYPES_MAP = NODE_TYPES.reduce((prev, current) => {
+  return { ...prev, [current.type]: current }
+}, {})
+
+export const GRID = [20,20]

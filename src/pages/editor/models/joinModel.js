@@ -1,7 +1,7 @@
-import Node from './baseModel'
+import BaseModel from './baseModel'
 import * as configTool from '../config'
 import Join from '../nodes/JoinNode'
-export class JoinNode extends Node {
+export class JoinModel extends BaseModel {
   constructor(config, data) {
     super({
       data,

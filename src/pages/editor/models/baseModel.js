@@ -1,7 +1,7 @@
 /* eslint-disable no-debugger */
 import Vue from 'vue'
 
-export default class Node {
+export default class BaseModel {
   $createElement = new Vue().$createElement
   position
   data
