@@ -1,6 +1,7 @@
 import BaseModel from './baseModel'
 import * as configTool from '../config'
-import Start from '../nodes/StartNode'
+import { StartNode } from '../nodes/StartNode'
+import { createDom } from '../utils/common'
 export class StartModel extends BaseModel {
   constructor(config, data) {
     super({
@@ -16,6 +17,8 @@ export class StartModel extends BaseModel {
     })
   }
   render() {
-    return this.$createElement(Start, { props: { config: this } })
+    this.nodeInstance = new StartNode({ model: this })
+    this.currentEle = this.nodeInstance.render(createDom)
+    return this.currentEle
   }
 }

@@ -69,10 +69,10 @@ export function createNodesModel(context, config = {}) {
   }, [])
   return [...eventNodes, ...gatewayNodes, ...taskNodes]
 }
-//2
-export function createNodes(context, models) {
-  return models.map(model => model.render())
-}
+// //2
+// export function createNodes(context, models) {
+//   return models.map(model => model.render())
+// }
 //3
 export function initEndpoints(context, models) {
   models.forEach(model => {

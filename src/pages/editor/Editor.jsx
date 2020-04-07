@@ -5,24 +5,18 @@ import { drop } from '../../directive'
 const flow = new Flow()
 export default {
   data() {
-    return {
-      nodes: []
-    }
+    return {}
   },
   directives: { drop },
   async mounted() {
     flow.registerListenner({
       //监听节点移除
-      nodeRemove: this.handleNodeRemove
+      nodeRemove: this.handleAfterNodeRemove
     })
-    await flow.loadData('/flowData/test.json')
-    this.update()
-    this.$nextTick(() => {
-      flow.mount()
-    })
+    await flow.init('/flowData/test.json')
   },
   methods: {
-    handleNodeRemove(model, node) {
+    handleAfterNodeRemove(model, node) {
       console.log({ model, node })
       //TODO 节点移除后要做的事情
     },
@@ -34,13 +28,9 @@ export default {
     onDrop(type, evt) {
       // flow
       const model = flow.createNode(type, evt)
-      this.update()
       this.$nextTick(() => {
         flow.registerNode(model)
       })
-    },
-    update() {
-      this.nodes = [...flow.nodes]
     }
   },
   render() {
@@ -53,9 +43,7 @@ export default {
             id="diagramContainer"
             style="height:800px;overflow:hidden;flex:1"
             v-drop={this.onDrop}
-          >
-            {this.nodes}
-          </div>
+          ></div>
           <button
             style="position:absolute;top:0;right:0"
             onClick={this.handleClick}

@@ -12,9 +12,10 @@ export default class BaseModel {
   name
   on //存储节点事件处理方法的
   pointUuids = []
-
+  currentEle
   context
   cat
+  nodeInstance
   constructor(config = {}) {
     this.position = config.position || [300, 300]
     this.data = config.data

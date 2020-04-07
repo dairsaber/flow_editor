@@ -1,6 +1,7 @@
 import BaseModel from './baseModel'
 import * as configTool from '../config'
-import Task from '../nodes/TaskNode'
+import { TaskNode } from '../nodes/TaskNode'
+import { createDom } from '../utils/common'
 export class TaskModel extends BaseModel {
   constructor(config, data) {
     super({
@@ -20,6 +21,8 @@ export class TaskModel extends BaseModel {
     })
   }
   render() {
-    return this.$createElement(Task, { props: { config: this } })
+    this.nodeInstance = new TaskNode({ model: this })
+    this.currentEle = this.nodeInstance.render(createDom)
+    return this.currentEle
   }
 }

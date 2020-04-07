@@ -1,6 +1,7 @@
 import BaseModel from './baseModel'
 import * as configTool from '../config'
-import Gateway from '../nodes/GatewayNode'
+import { GatewayNode } from '../nodes/GatewayNode'
+import { createDom } from '../utils/common'
 
 //条件节点
 export class GatewayModel extends BaseModel {
@@ -49,6 +50,8 @@ export class GatewayModel extends BaseModel {
     })
   }
   render() {
-    return this.$createElement(Gateway, { props: { config: this } })
+    this.nodeInstance = new GatewayNode({ model: this })
+    this.currentEle = this.nodeInstance.render(createDom)
+    return this.currentEle
   }
 }

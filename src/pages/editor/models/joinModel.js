@@ -1,6 +1,7 @@
 import BaseModel from './baseModel'
 import * as configTool from '../config'
-import Join from '../nodes/JoinNode'
+import {JoinNode} from '../nodes/JoinNode'
+import { createDom } from '../utils/common'
 export class JoinModel extends BaseModel {
   constructor(config, data) {
     super({
@@ -20,6 +21,8 @@ export class JoinModel extends BaseModel {
     })
   }
   render() {
-    return this.$createElement(Join, { props: { config: this } })
+    this.nodeInstance = new JoinNode({ model: this })
+    this.currentEle = this.nodeInstance.render(createDom)
+    return this.currentEle
   }
 }

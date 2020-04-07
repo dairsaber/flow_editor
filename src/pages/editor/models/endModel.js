@@ -1,6 +1,7 @@
 import BaseModel from './baseModel'
 import * as configTool from '../config'
-import End from '../nodes/EndNode'
+import { EndNode } from '../nodes/EndNode'
+import { createDom } from '../utils/common'
 export class EndModel extends BaseModel {
   constructor(config, data) {
     super({
@@ -8,7 +9,7 @@ export class EndModel extends BaseModel {
       endpoints: [
         {
           anchor: { ...configTool.defaultAnchor, anchor: 'Top' },
-          endpoint: configTool.defaultTargetPoint 
+          endpoint: configTool.defaultTargetPoint
         }
       ],
       type: 'end',
@@ -16,6 +17,8 @@ export class EndModel extends BaseModel {
     })
   }
   render() {
-    return this.$createElement(End, { props: { config: this } })
+    this.nodeInstance = new EndNode({ model: this })
+    this.currentEle = this.nodeInstance.render(createDom)
+    return this.currentEle
   }
 }
