@@ -6,15 +6,17 @@ import Panel from './components/Panel'
 const flow = new Flow()
 export default {
   data() {
-    return {}
+    return { selected: [] }
   },
   directives: { drop },
   async mounted() {
     flow.registerListenner({
       //监听节点移除
-      nodeRemove: this.handleAfterNodeRemove
+      nodeRemove: this.handleAfterNodeRemove,
+      active: this.handleSelectedChange
     })
     await flow.init('/flowData/test.json')
+    this.selected = flow.selected
   },
   methods: {
     //TODO 节点移除后要做的事情
@@ -30,6 +32,11 @@ export default {
     onDrop(type, evt) {
       flow.createNode(type, evt)
     },
+    // TODO 当节点选择变化时
+    handleSelectedChange(active, model) {
+      console.log({ active, model, flow })
+      this.selected = flow.selected
+    },
     //
     handleContainerClick(evt) {
       //取消选择
@@ -42,7 +49,12 @@ export default {
   render() {
     return (
       <div>
-        <div toolbar style="height:32px;background-color:grey"></div>
+        <div
+          toolbar
+          style="height:32px;background-color:grey;color:white;line-height:32px;text-align:center"
+        >
+          {(this.selected[0] && this.selected[0].id) || '暂无选择节点'}
+        </div>
         <div style="flex:1;overflow:hidden;display:flex">
           <Panel />
           <div
