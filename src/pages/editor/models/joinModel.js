@@ -1,6 +1,6 @@
 import BaseModel from './baseModel'
 import * as configTool from '../config'
-import {JoinNode} from '../nodes/JoinNode'
+import { JoinNode } from '../nodes/JoinNode'
 import { createDom } from '../utils/common'
 export class JoinModel extends BaseModel {
   constructor(config, data) {

@@ -1,3 +1,6 @@
+/**
+ * 过时的代码....
+ */
 import BaseModel from './baseModel'
 import * as configTool from '../config'
 import Condition from '../nodes/ConditionNode'
