@@ -16,7 +16,11 @@ export class EndNode extends BaseNode {
         className: getClassName('end'),
         style,
         attrs: { id: model.id, nodeDraggable: true },
-        on: { dblclick: this.remove, mouseup: this.upDatePosition }
+        on: {
+          dblclick: this.remove,
+          mouseup: this.updatePosition,
+          click: this.hanldSelect
+        }
       },
       '结束'
     )

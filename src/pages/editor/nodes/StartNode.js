@@ -15,8 +15,12 @@ export class StartNode extends BaseNode {
       {
         className: getClassName('start'),
         style,
-        attrs: { id: model.id,nodeDraggable:true },
-        on: { dblclick: this.remove, mouseup: this.upDatePosition }
+        attrs: { id: model.id, nodeDraggable: true },
+        on: {
+          dblclick: this.remove,
+          mouseup: this.updatePosition,
+          click: this.hanldSelect
+        }
       },
       '开始'
     )

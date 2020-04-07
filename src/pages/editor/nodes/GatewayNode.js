@@ -16,7 +16,11 @@ export class GatewayNode extends BaseNode {
         className: getClassName('gateway'),
         style,
         attrs: { id: model.id, nodeDraggable: true },
-        on: { dblclick: this.remove, mouseup: this.upDatePosition }
+        on: {
+          dblclick: this.remove,
+          mouseup: this.updatePosition,
+          click: this.hanldSelect
+        }
       },
       `<div>通过</div><div>不通过</div>`
     )

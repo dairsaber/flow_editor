@@ -13,6 +13,7 @@ export class Flow {
   jsPlumb
   events = {}
   container
+  selected = []
   constructor() {
     this.jsPlumb = jsPlumb.getInstance()
   }
@@ -98,17 +99,26 @@ export class Flow {
   addNode(model) {
     this.models.push(model)
     this.container.append(model.render())
+    this.setEndPoint(model)
     return model
   }
-  registerNode(model) {
+  //添加锚点
+  setEndPoint(model) {
     model.setPoint()
     this.jsPlumb.draggable(model.id, {
       containment: CONTAINER_ID,
       grid: GRID
     })
   }
+  //注册事件
   registerListenner(obj = {}) {
     this.events = obj
+  }
+  unSelectAll() {
+    this.selected.forEach(model => {
+      model.nodeInstance.active(false)
+    })
+    this.selected = []
   }
 }
 

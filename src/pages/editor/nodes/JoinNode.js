@@ -16,7 +16,11 @@ export class JoinNode extends BaseNode {
         className: getClassName('join'),
         style,
         attrs: { id: model.id,nodeDraggable:true },
-        on: { dblclick: this.remove, mouseup: this.upDatePosition }
+        on: {
+          dblclick: this.remove,
+          mouseup: this.updatePosition,
+          click: this.hanldSelect
+        }
       },
       '聚合'
     )

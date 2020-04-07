@@ -17,7 +17,11 @@ export class TaskNode extends BaseNode {
         className: getClassName('task'),
         style,
         attrs: { id: model.id, nodeDraggable: true },
-        on: { dblclick: this.remove, mouseup: this.upDatePosition }
+        on: {
+          dblclick: this.remove,
+          mouseup: this.updatePosition,
+          click: this.hanldSelect
+        }
       },
       childName
     )

@@ -2,6 +2,7 @@
 import { confirm } from '../utils/tips'
 export class BaseNode {
   model
+  selected = false
   constructor({ model }) {
     this.model = model
   }
@@ -21,8 +22,52 @@ export class BaseNode {
   }
   edit = () => {}
   //更新节点位置
-  upDatePosition = () => {
+  updatePosition = () => {
     const currentEle = this.model.currentEle
     this.model.changePosition(currentEle.offsetLeft, currentEle.offsetTop)
   }
+  //选择切换状态
+  selectedChange = (bool, multiple) => {
+    if (this.selected === bool) return
+    const context = this.model.context
+    const currentSelected = context.selected
+    //是否激活
+    if (bool) {
+      //是否存在
+      const isExist = currentSelected.includes(this.model)
+      if (!isExist) {
+        //是否多选
+        if (!multiple) {
+          currentSelected.forEach(model => {
+            model.nodeInstance.active(false)
+          })
+          this.model.context.selected = []
+        }
+        this.active(true)
+      }
+    } else {
+      this.active(false)
+    }
+  }
+  //节点被激活
+  active = active => {
+    if (active) {
+      this.model.currentEle.style.boxShadow = '0px 0px 0px 2px #00a4ff'
+    } else {
+      this.model.currentEle.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.1)'
+    }
+    this.model.context.selected.push(this.model)
+    //安插激活状态钩子
+    this.model.context.events['active'] &&
+      this.model.context.events['active'](active, this.model)
+  }
+  //处理节点被点击之后的事件
+  hanldSelect = (ele, evt) => {
+    this.selectedChange(!this.selected, false)
+    evt.stopPropagation()
+    evt.preventDefault()
+    return false
+  }
 }
+
+//box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
