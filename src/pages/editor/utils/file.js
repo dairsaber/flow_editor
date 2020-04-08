@@ -48,7 +48,6 @@ export function readFile(accept) {
     const clickEvt = document.createEvent('MouseEvents')
     clickEvt.initMouseEvent('click')
     fileInput.onchange = ({ target }) => {
-      console.log(target.files)
       const fr = new FileReader()
       fr.onloadend = () => {
         r(fr.result)
