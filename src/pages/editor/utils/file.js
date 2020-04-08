@@ -37,3 +37,69 @@ export function saveJSON(data, filename) {
   )
   a.dispatchEvent(e)
 }
+
+/**
+ * 读取json
+ */
+export async function readJson() {
+  try {
+    const fileString = await readFile()
+    return JSON.parse(fileString)
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+/**
+ * 读取本地文件
+ */
+export function readFile(accept = '.json') {
+  return new Promise(r => {
+    const fileInput = document.createElement('input')
+    fileInput.setAttribute('type', 'file')
+    fileInput.setAttribute('accept', accept)
+    const clickEvt = document.createEvent('MouseEvents')
+    clickEvt.initMouseEvent(
+      'click',
+      false,
+      false,
+      window,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      false,
+      false,
+      false,
+      0,
+      null
+    )
+    fileInput.onchange = ({ target }) => {
+      // const fileName = fileInput.getAttribute('value')
+      console.log(target.files)
+      const fr = new FileReader()
+      // eslint-disable-next-line no-debugger
+      fr.onloadend = () => {
+        r(fr.result)
+      }
+      fr.readAsText(target.files[0])
+    }
+    fileInput.dispatchEvent(clickEvt)
+  })
+
+  // let fr = new FileReader()
+  // return new Promise(
+  //   r => {
+  //     fr.onloadend(() => {
+  //       r(fr.result)
+  //     })
+  //     fr.readAsText()
+  //   },
+  //   reason => {
+  //     reason('读取失败')
+  //   }
+  // )
+}

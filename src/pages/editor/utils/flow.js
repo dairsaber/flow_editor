@@ -2,7 +2,7 @@
 import { jsPlumb } from 'jsplumb'
 import * as jsPlumbUtils from './load'
 import { request } from './request'
-import { saveJSON } from './file'
+import { saveJSON, readJson } from './file'
 import * as nodesModel from '../models'
 import { guid } from '../utils/common'
 import { NODE_TYPES_MAP, GRID, CONTAINER_ID } from '../config'
@@ -14,6 +14,7 @@ export class Flow {
   events = {}
   container
   selected = []
+  name = '未命名'
   constructor() {
     this.jsPlumb = jsPlumb.getInstance()
   }
@@ -23,7 +24,6 @@ export class Flow {
     const { data } = await request(path)
     this.config = data
     this.models = jsPlumbUtils.createNodesModel(this, this.config)
-    // this.nodes = jsPlumbUtils.createNodes(this, this.models)
     await this.mount()
   }
   //挂载dom
@@ -42,6 +42,16 @@ export class Flow {
         r()
       })
     })
+  }
+  // 本地导入json
+  async loadFromJson() {
+    const jsonData = await readJson()
+    if (jsonData) {
+      this.reset()
+      this.config = jsonData
+      this.models = jsPlumbUtils.createNodesModel(this, this.config)
+      await this.mount()
+    }
   }
   //导出Json
   exportJson() {
@@ -119,6 +129,13 @@ export class Flow {
       model.nodeInstance.active(false)
     })
     this.selected = []
+  }
+  reset() {
+    this.models = []
+    this.edges = {}
+    this.config = undefined
+    this.selected = []
+    this.jsPlumb.empty(CONTAINER_ID)
   }
 }
 

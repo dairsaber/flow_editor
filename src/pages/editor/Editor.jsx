@@ -4,6 +4,7 @@ import { drop } from '../../directive'
 import { CONTAINER_ID } from './config'
 import Pannel from './components/attrsPannel/Pannel'
 import Menu from './components/Menu'
+import { Button } from 'ant-design-vue'
 const flow = new Flow()
 export default {
   data() {
@@ -29,11 +30,6 @@ export default {
     handleAfterNodeRemove(model, node) {
       console.log({ model, node })
     },
-    //测试
-    handleTest() {
-      console.log(flow)
-      console.log(flow.exportJson())
-    },
     //拖动添加节点
     onDrop(type, evt) {
       flow.createNode(type, evt)
@@ -50,6 +46,16 @@ export default {
       evt.stopPropagation()
       evt.preventDefault()
       return false
+    },
+    handleNew() {
+      this.selected = []
+      flow.reset()
+    },
+    handleImport() {
+      flow.loadFromJson()
+    },
+    handleExport() {
+      flow.exportJson()
     }
   },
   render() {
@@ -60,7 +66,17 @@ export default {
           toolbar
           style="height:32px;background-color:grey;color:white;line-height:32px;text-align:center"
         >
-          {(this.selected[0] && this.selected[0].id) || '暂无选择节点'}
+          <Button size="small" onClick={this.handleNew} icon="file">
+            新建
+          </Button>
+          &emsp;
+          <Button size="small" onClick={this.handleImport} icon="import">
+            导入
+          </Button>
+          &emsp;
+          <Button size="small" onClick={this.handleExport} icon="import">
+            导出
+          </Button>
         </div>
         <div style="flex:1;overflow:hidden;display:flex">
           {/* 节点面板 */}
@@ -79,13 +95,6 @@ export default {
               onClick={this.handleContainerClick}
             ></div>
           </div>
-          {/* 测试按钮 */}
-          <button
-            style="position:absolute;top:0;right:0"
-            onClick={this.handleTest}
-          >
-            测试
-          </button>
         </div>
       </div>
     )

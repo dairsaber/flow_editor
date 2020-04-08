@@ -1,4 +1,4 @@
-export const CONTAINER_ID = "diagramContainer"
+export const CONTAINER_ID = 'diagramContainer'
 
 // 基本连接线样式
 const connectorPaintStyle = {
@@ -11,6 +11,7 @@ const connectorHoverStyle = {
   strokeWidth: 2,
   stroke: 'red'
 }
+// 默认源endPoint配置
 export const defaultSourceEndpoint = {
   isSource: true,
   paintStyle: {
@@ -24,6 +25,7 @@ export const defaultSourceEndpoint = {
   connectorStyle: connectorPaintStyle,
   connectorHoverStyle: connectorHoverStyle
 }
+// 默认锚点配置
 export const defaultAnchor = {
   connector: [
     'Flowchart',
@@ -42,7 +44,7 @@ export const defaultAnchor = {
     ]
   ]
 }
-
+// 默认目标endPoint配置
 export const defaultTargetPoint = {
   isTarget: true,
   paintStyle: {
@@ -56,7 +58,7 @@ export const defaultTargetPoint = {
   connectorStyle: connectorPaintStyle,
   connectorHoverStyle: connectorHoverStyle
 }
-
+// 节点类型
 export const NODE_TYPES = [
   { type: 'StartEvent', cat: 'Events', label: '开始' },
   { type: 'EndEvent', cat: 'Events', label: '结束' },
@@ -69,4 +71,4 @@ export const NODE_TYPES_MAP = NODE_TYPES.reduce((prev, current) => {
   return { ...prev, [current.type]: current }
 }, {})
 
-export const GRID = [20,20]
+export const GRID = [20, 20]

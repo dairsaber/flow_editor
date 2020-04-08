@@ -52,9 +52,9 @@ export class BaseNode {
   //节点被激活
   active = active => {
     if (active) {
-      this.model.currentEle.style.boxShadow = '0px 0px 0px 2px #00a4ff'
+      this.model.currentEle.classList.add('node-active')
     } else {
-      this.model.currentEle.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.1)'
+      this.model.currentEle.classList.remove('node-active')
     }
     this.model.context.selected.push(this.model)
     //安插激活状态钩子
@@ -66,7 +66,7 @@ export class BaseNode {
     this.selectedChange(!this.selected, false)
     evt.stopPropagation()
     evt.preventDefault()
-    
+
     return false
   }
 }
