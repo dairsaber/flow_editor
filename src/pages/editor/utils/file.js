@@ -18,23 +18,7 @@ export function saveJSON(data, filename) {
   a.download = filename
   a.href = window.URL.createObjectURL(blob)
   a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
-  e.initMouseEvent(
-    'click',
-    true,
-    false,
-    window,
-    0,
-    0,
-    0,
-    0,
-    0,
-    false,
-    false,
-    false,
-    false,
-    0,
-    null
-  )
+  e.initMouseEvent('click')
   a.dispatchEvent(e)
 }
 
@@ -43,7 +27,7 @@ export function saveJSON(data, filename) {
  */
 export async function readJson() {
   try {
-    const fileString = await readFile()
+    const fileString = await readFile('.json')
     return JSON.parse(fileString)
   } catch (error) {
     console.error(error)
@@ -54,34 +38,18 @@ export async function readJson() {
 /**
  * 读取本地文件
  */
-export function readFile(accept = '.json') {
+export function readFile(accept) {
   return new Promise(r => {
     const fileInput = document.createElement('input')
     fileInput.setAttribute('type', 'file')
-    fileInput.setAttribute('accept', accept)
+    if (accept) {
+      fileInput.setAttribute('accept', accept)
+    }
     const clickEvt = document.createEvent('MouseEvents')
-    clickEvt.initMouseEvent(
-      'click',
-      false,
-      false,
-      window,
-      0,
-      0,
-      0,
-      0,
-      0,
-      false,
-      false,
-      false,
-      false,
-      0,
-      null
-    )
+    clickEvt.initMouseEvent('click')
     fileInput.onchange = ({ target }) => {
-      // const fileName = fileInput.getAttribute('value')
       console.log(target.files)
       const fr = new FileReader()
-      // eslint-disable-next-line no-debugger
       fr.onloadend = () => {
         r(fr.result)
       }
@@ -89,17 +57,4 @@ export function readFile(accept = '.json') {
     }
     fileInput.dispatchEvent(clickEvt)
   })
-
-  // let fr = new FileReader()
-  // return new Promise(
-  //   r => {
-  //     fr.onloadend(() => {
-  //       r(fr.result)
-  //     })
-  //     fr.readAsText()
-  //   },
-  //   reason => {
-  //     reason('读取失败')
-  //   }
-  // )
 }
