@@ -66,6 +66,7 @@ export class BaseNode {
     this.selectedChange(!this.selected, false)
     evt.stopPropagation()
     evt.preventDefault()
+    
     return false
   }
 }

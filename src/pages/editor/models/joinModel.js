@@ -5,6 +5,7 @@ import { createDom } from '../utils/common'
 export class JoinModel extends BaseModel {
   constructor(config, data) {
     super({
+      name: '聚合',
       data,
       endpoints: [
         {

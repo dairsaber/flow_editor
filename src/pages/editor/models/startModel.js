@@ -5,6 +5,7 @@ import { createDom } from '../utils/common'
 export class StartModel extends BaseModel {
   constructor(config, data) {
     super({
+      name: '开始',
       data,
       endpoints: [
         {

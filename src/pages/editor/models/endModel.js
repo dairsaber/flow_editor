@@ -5,6 +5,7 @@ import { createDom } from '../utils/common'
 export class EndModel extends BaseModel {
   constructor(config, data) {
     super({
+      name: '结束',
       data,
       endpoints: [
         {

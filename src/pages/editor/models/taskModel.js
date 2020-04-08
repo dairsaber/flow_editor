@@ -5,6 +5,7 @@ import { createDom } from '../utils/common'
 export class TaskModel extends BaseModel {
   constructor(config, data) {
     super({
+      name: '任务',
       data,
       endpoints: [
         {

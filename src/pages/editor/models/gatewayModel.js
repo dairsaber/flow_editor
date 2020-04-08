@@ -7,6 +7,7 @@ import { createDom } from '../utils/common'
 export class GatewayModel extends BaseModel {
   constructor(config, data) {
     super({
+      name: '关口',
       data,
       endpoints: [
         {
