@@ -4,6 +4,11 @@ export class TaskNode extends BaseNode {
   constructor({ model }) {
     super({ model })
   }
+  // 当元数据发生改变时的处理方法
+  handleMetaChange = () => {
+    const childName = (this.model.data.meta || {}).Name || '未知任务'
+    this.model.currentEle.innerText = childName
+  }
   render(h) {
     const model = this.model || {}
     const style = {

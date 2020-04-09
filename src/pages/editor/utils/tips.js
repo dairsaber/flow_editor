@@ -1,4 +1,4 @@
-import { Modal } from 'ant-design-vue'
+import { Modal, message } from 'ant-design-vue'
 
 export function confirm(title, content) {
   return new Promise(r => {
@@ -15,4 +15,14 @@ export function confirm(title, content) {
       }
     })
   })
+}
+
+export function success(content = '') {
+  message.success(content)
+}
+export function warn(content = '') {
+  message.warn(content)
+}
+export function error(content = '') {
+  message.error(content)
 }

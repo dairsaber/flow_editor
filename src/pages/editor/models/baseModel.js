@@ -14,7 +14,7 @@ export default class BaseModel {
   nodeInstance
   constructor(config = {}) {
     this.position = config.position || [300, 300]
-    this.data = config.data
+    this.data = config.data || { meta: {} }
     this.endpointsConfig = config.endpoints || []
     this.name = config.name
     this.id = config.id
@@ -44,5 +44,26 @@ export default class BaseModel {
   }
   changePosition(x, y) {
     this.position = [x, y]
+  }
+  updateMeta(obj) {
+    if (!obj) return
+    this.data.meta = { ...this.data.meta, ...obj }
+    if (this.id !== obj.id) {
+      this.id = obj.Id
+      this.context.jsPlumb.setId(this.currentEle, this.id)
+      this.resetEndPoint()
+    }
+    this.nodeInstance.handleMetaChange && this.nodeInstance.handleMetaChange()
+  }
+  resetEndPoint() {
+    this.endpoints.forEach(ep => {
+      this.context.jsPlumb.deleteEndpoint(ep)
+    })
+    this.endpoints = []
+    this.setPoint()
+  }
+  reConnect(newEps, oldEps) {
+    // TODO 当节点Id变化时修改连接
+    console.log({ newEps, oldEps })
   }
 }

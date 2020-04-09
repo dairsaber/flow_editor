@@ -6,6 +6,7 @@ import Pannel from './components/attrsPannel/Pannel'
 import Menu from './components/Menu'
 import { Button } from 'ant-design-vue'
 const flow = new Flow()
+window.flow = flow
 export default {
   data() {
     return { selected: [] }
@@ -85,7 +86,7 @@ export default {
             {/* 属性面板 */}
             <Pannel
               selected={this.selected}
-              style="position:absolute;z-index:1;right:0;top:0;height:50%;overflow-y:auto"
+              style="position:absolute;z-index:1;right:0;top:0;max-height:100%;overflow-y:auto"
             />
             {/* 编辑器容器 内部不要放dom */}
             <div

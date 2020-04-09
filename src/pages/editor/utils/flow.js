@@ -140,7 +140,7 @@ export class Flow {
 }
 
 function createBaseNode(context, type, position, nodeClass) {
-  const meta = { id: `${type}_${guid()}`, type }
+  const meta = { Id: `${type}_${guid()}`, Type: type }
   const cat = NODE_TYPES_MAP[type].cat
   return new nodeClass({ ...meta, context, type, cat, position }, { meta })
 }
