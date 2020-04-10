@@ -58,8 +58,6 @@ export class BaseNode {
     }
     this.model.context.selected.push(this.model)
     //安插激活状态钩子
-    this.model.context.events['active'] &&
-      this.model.context.events['active'](active, this.model)
     this.model.context.afterNodeSelectedChange(active, this.model)
   }
   //处理节点被点击之后的事件

@@ -9,7 +9,7 @@ const flow = new Flow()
 window.flow = flow
 export default {
   data() {
-    return { selected: [] }
+    return { selected: [], selectedEdges: [] }
   },
   provide() {
     return {
@@ -21,7 +21,8 @@ export default {
     flow.registerListenner({
       //监听节点移除
       nodeRemove: this.handleAfterNodeRemove,
-      active: this.handleSelectedChange
+      active: this.handleNodeSelectedChange,
+      edgeSelectedChange: this.handleEdgeSelectedChange
     })
     // await flow.init('/flowData/test.json')
     await flow.init()
@@ -39,8 +40,13 @@ export default {
       flow.createNode(type, evt)
     },
     // 当节点选择变化时
-    handleSelectedChange() {
+    handleNodeSelectedChange() {
       this.selected = flow.selected
+    },
+    //边选择变化
+    handleEdgeSelectedChange() {
+      this.selectedEdges = flow.selectedEdges
+      console.log("handleEdgeSelectedChange -> this.selectedEdges", this.selectedEdges)
     },
     //
     handleContainerClick(evt) {
@@ -91,6 +97,7 @@ export default {
             {/* 属性面板 */}
             <Pannel
               selected={this.selected}
+              selectedEdges={this.selectedEdges}
               style="position:absolute;z-index:1;right:0;top:0;max-height:100%;overflow-y:auto"
             />
             {/* 编辑器容器 内部不要放dom */}

@@ -1,20 +1,37 @@
+/* eslint-disable no-debugger */
 import BasicPannel from './BasicPannel'
+import BasicEdgePannel from './BasicEdgePannel'
 export default {
   props: {
-    selected: Array
+    selected: Array,
+    selectedEdges: Array
   },
   computed: {
     pannel() {
       const selected = this.selected || []
-      const multiSelectedItem = selected.length > 1
-      const onlySelectedOne = selected.length === 1
+      const selectedEdges = this.selectedEdges || []
+      const allSelected = selected.concat(selectedEdges)
+      const multiSelectedItem = allSelected.length > 1
+      const onlySelectedOne = allSelected.length === 1
+      //多选模式下不展示pannel
       if (multiSelectedItem) {
         return null
       }
+      //单选模式下
       if (onlySelectedOne) {
         const [selectedNode] = selected
-        const basicPannel = <BasicPannel item={selected[0]} />
+        const [selectedConnection] = selectedEdges
+        let basicPannel = null
+        if (selectedNode) {
+          basicPannel = <BasicPannel item={selectedNode} />
+        } else {
+          basicPannel = <BasicEdgePannel item={selectedConnection} />
+        }
         switch (true) {
+          case !!selectedConnection:
+            return this.getEdgePannel(basicPannel)
+          case !selectedNode:
+            return null
           case selectedNode.type === 'StartEvent':
           case selectedNode.type === 'EndEvent':
           case selectedNode.type === 'JoinGateway':
@@ -30,6 +47,13 @@ export default {
     }
   },
   methods: {
+    getEdgePannel(pannel) {
+      return (
+        <div style="width:240px;background-color:white;border-radius:4px 0 0 4px;border-left:1px solid #eee">
+          {pannel}
+        </div>
+      )
+    },
     getPannel(customPannel, basicPannel) {
       return (
         <div style="width:240px;background-color:white;border-radius:4px 0 0 4px;border-left:1px solid #eee">

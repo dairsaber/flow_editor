@@ -44,7 +44,7 @@ export default {
         } else if (key === 'other') {
           let newOtherData = {}
           try {
-            newOtherData = JSON.parse(value)
+            newOtherData = JSON.parse(value||{})
             this.jsonError = false
           } catch (error) {
             this.jsonError = true
@@ -73,7 +73,7 @@ export default {
     const { Name, Id, Type } = this.meta
     return (
       <div class={getClassName('basic-pannel')}>
-        <Card title="基本属性">
+        <Card title="节点基本属性">
           <p> I D：{item.id}</p>
           <p>名称：{item.name}</p>
           <p>分类：{item.cat}</p>

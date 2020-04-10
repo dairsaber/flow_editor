@@ -13,6 +13,9 @@ import {
   activeConnectorPaintStyle,
   connectorPaintStyle
 } from '../config'
+
+let _selectedEdges = [] //当前被选择的边
+let _selectedNodes = [] //当前被选择的节点
 export class Flow {
   models = []
   edges = new Set()
@@ -20,8 +23,6 @@ export class Flow {
   jsPlumb
   events = {}
   container
-  selected = [] //当前被选择的node
-  selectedEdges = [] //当前被选择的边
   name = '未命名'
   multiple = false //是否多选
   constructor() {
@@ -81,7 +82,7 @@ export class Flow {
     )
     const Transitions = [...this.edges].map(conn => conn.getData())
     const data = { Id, Version, Title, ...otherInfo, Transitions }
-    // saveJSON(data, `${data.Title}.json`)
+    saveJSON(data, `${data.Title}.json`)
     return data
   }
   //创建节点
@@ -159,6 +160,7 @@ export class Flow {
     const connection = this.jsPlumb.connect({
       uuids: [fromUuid, `${To}.to`]
     })
+    if (!connection) return
     connection.setData(config)
     this.edges.add(connection)
   }
@@ -169,17 +171,39 @@ export class Flow {
       this.selectedEdges = []
     }
   }
+  //选择的边
+  set selectedEdges(value) {
+    if (_selectedEdges === value && value.length === 0) {
+      return
+    }
+    _selectedEdges = value
+    this.notifyEdgeSelectedChange()
+  }
+  get selectedEdges() {
+    return _selectedEdges
+  }
+  //选择的节点
+  set selected(value) {
+    if (_selectedNodes === value && value.length === 0) {
+      return
+    }
+    _selectedNodes = value
+    this.notifyNodeSelectedChange()
+  }
+  get selected() {
+    return _selectedNodes
+  }
   //增加边后的操作
   addEdge(info) {
     const { sourceEndpoint, targetEndpoint, connection } = info
     const sourceUuid = sourceEndpoint.getUuid()
     const targetUuid = targetEndpoint.getUuid()
-    const isExist = this.existSameEdge(sourceUuid, targetUuid)
-    if (isExist) {
-      this.jsPlumb.deleteConnection(connection)
-      error('不能连接相同节点')
-      return
-    }
+    // const isExist = this.existSameEdge(sourceUuid, targetUuid)
+    // if (isExist) {
+    //   this.jsPlumb.deleteConnection(connection)
+    //   error('不能连接相同节点')
+    //   return
+    // }
     const [sourceId, code] = sourceUuid.split('.')
     const [targetId] = targetUuid.split('.')
     let edge = { From: sourceId, To: targetId }
@@ -206,8 +230,9 @@ export class Flow {
     if (this.selectedEdges.includes(conn)) {
       return
     }
+    this.selected = []
     if (this.multiple) {
-      this.selectedEdges.push(conn)
+      this.selectedEdges = [...this.selectedEdges, conn]
     } else {
       this.selectedEdges = [conn]
     }
@@ -215,6 +240,12 @@ export class Flow {
     this.selectedEdges.forEach(conn => {
       conn.setPaintStyle(activeConnectorPaintStyle)
     })
+  }
+  notifyEdgeSelectedChange() {
+    this.events.edgeSelectedChange && this.events.edgeSelectedChange()
+  }
+  notifyNodeSelectedChange() {
+    this.events.active && this.events.active()
   }
   //重置边的样式
   resetEdgesStyle() {
