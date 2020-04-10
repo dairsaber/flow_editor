@@ -82,50 +82,50 @@ export function initEndpoints(context, models) {
 //TODO 4 建立连接
 export function connectNodes(context, config) {
   const { Transitions } = config
+  if (!Transitions) return 
   Transitions.forEach(item => {
-    const { From, To, Name } = item
-    const fromUuid = Name ? `${From}.${Name}` : `${From}.from`
-    context.jsPlumb.connect({
-      uuids: [fromUuid, `${To}.to`]
-    })
-    context.edges[`${fromUuid}|${To}.to`] = item
+    context.connectEdgeByConfig(item)
   })
 }
 //TODO 5 注册事件
 export function registerEvents(context) {
   //连接线连接时
   context.jsPlumb.bind('connection', info => {
-    addEdge(context, info.sourceEndpoint, info.targetEndpoint)
+    context.addEdge(info)
   })
+  // //连接建立之前
+  // context.jsPlumb.bind('beforeDrop', info => {
+  //   // context.addEdge(info)
+  //   console.log({info})
+  // })
   //断连接时
   context.jsPlumb.bind('connectionDetached', info => {
-    deleteEdge(
-      context,
-      info.sourceEndpoint.getUuid(),
-      info.targetEndpoint.getUuid()
-    )
+    context.deleteEdge(info.connection)
   })
-  // 单点击了连接线,
+  // 双击了连接线,
   context.jsPlumb.bind('dblclick', async conn => {
-    console.log({ conn })
     if (await confirm('删除提示', '确定删除此链接吗？')) {
       context.jsPlumb.deleteConnection(conn)
     }
   })
+  // 单击了连接线,
+  context.jsPlumb.bind('click', async conn => {
+    context.selectEdge(conn)
+  })
   // 改变线的连接节点
   context.jsPlumb.bind('connectionMoved', evt => {
-    deleteEdge(
-      context,
-      evt.originalSourceEndpoint.getUuid(),
-      evt.originalTargetEndpoint.getUuid()
-    )
+    const info = {
+      sourceUuid: evt.originalSourceEndpoint.getUuid(),
+      targetUuid: evt.originalTargetEndpoint.getUuid()
+    }
+    context.deleteEdge(evt.connection)
   })
+  //TODO 右键菜单功能
   context.jsPlumb.bind('contextmenu', function(component) {
-    // console.log({ component })
     window.component = component
   })
 }
-//TODO 6 注册其他
+// 6 注册其他
 export function registerOther(context) {
   //设置容器
   context.jsPlumb.setContainer(CONTAINER_ID)
@@ -134,20 +134,4 @@ export function registerOther(context) {
     containment: CONTAINER_ID,
     grid: GRID
   })
-}
-
-function deleteEdge(context, sourceUuid, targetUuid) {
-  delete context.edges[`${sourceUuid}|${targetUuid}`]
-}
-
-function addEdge(context, sourceEndpoint, targetEndpoint) {
-  const sourceUuid = sourceEndpoint.getUuid()
-  const targetUuid = targetEndpoint.getUuid()
-  const [sourceid, code] = sourceUuid.split('.')
-  const [targetId] = targetUuid.split('.')
-  let edge = { From: sourceid, To: targetId }
-  if (code.toLowerCase() !== 'from') {
-    edge.Name = code
-  }
-  context.edges[`${sourceUuid}|${targetUuid}`] = edge
 }

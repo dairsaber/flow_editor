@@ -23,11 +23,12 @@ export default {
       nodeRemove: this.handleAfterNodeRemove,
       active: this.handleSelectedChange
     })
-    await flow.init('/flowData/test.json')
+    // await flow.init('/flowData/test.json')
+    await flow.init()
     this.selected = flow.selected
   },
   methods: {
-    //TODO 节点移除后要做的事情
+    // 节点移除后要做的事情
     handleAfterNodeRemove(model, node) {
       console.log({ model, node })
     },
@@ -35,9 +36,8 @@ export default {
     onDrop(type, evt) {
       flow.createNode(type, evt)
     },
-    // TODO 当节点选择变化时
-    handleSelectedChange(active, model) {
-      console.log({ active, model, flow })
+    // 当节点选择变化时
+    handleSelectedChange() {
       this.selected = flow.selected
     },
     //
@@ -48,15 +48,18 @@ export default {
       evt.preventDefault()
       return false
     },
+    //新建流程图
     handleNew() {
       this.selected = []
       flow.reset()
     },
+    //导入流程图配置
     handleImport() {
       flow.loadFromJson()
     },
+    //导出流程图配置
     handleExport() {
-      flow.exportJson()
+      console.log(flow.exportJson())
     }
   },
   render() {

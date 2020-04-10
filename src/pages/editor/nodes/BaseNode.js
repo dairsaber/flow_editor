@@ -60,10 +60,12 @@ export class BaseNode {
     //安插激活状态钩子
     this.model.context.events['active'] &&
       this.model.context.events['active'](active, this.model)
+    this.model.context.afterNodeSelectedChange(active, this.model)
   }
   //处理节点被点击之后的事件
   hanldSelect = (ele, evt) => {
-    this.selectedChange(!this.selected, false)
+    const multiple = this.model.context.multiple
+    this.selectedChange(!this.selected, multiple)
     evt.stopPropagation()
     evt.preventDefault()
 

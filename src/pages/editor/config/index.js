@@ -1,11 +1,15 @@
 export const CONTAINER_ID = 'diagramContainer'
 
 // 基本连接线样式
-const connectorPaintStyle = {
+export const connectorPaintStyle = {
   strokeWidth: 2,
   stroke: '#61B7CF'
 }
-
+//
+export const activeConnectorPaintStyle = {
+  strokeWidth: 4,
+  stroke: 'red'
+}
 // 鼠标悬浮在连接线上的样式
 const connectorHoverStyle = {
   strokeWidth: 2,

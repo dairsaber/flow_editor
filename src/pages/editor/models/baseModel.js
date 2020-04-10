@@ -47,11 +47,18 @@ export default class BaseModel {
   }
   updateMeta(obj) {
     if (!obj) return
+    const oldSourceConnections = this.context.jsPlumb.getConnections({
+      source: this.id
+    })
+    const oldTargetConnections = this.context.jsPlumb.getConnections({
+      target: this.id
+    })
     this.data.meta = { ...this.data.meta, ...obj }
     if (this.id !== obj.id) {
       this.id = obj.Id
       this.context.jsPlumb.setId(this.currentEle, this.id)
       this.resetEndPoint()
+      this.reConnect([oldSourceConnections, oldTargetConnections], obj.Id)
     }
     this.nodeInstance.handleMetaChange && this.nodeInstance.handleMetaChange()
   }
@@ -62,8 +69,24 @@ export default class BaseModel {
     this.endpoints = []
     this.setPoint()
   }
-  reConnect(newEps, oldEps) {
+  reConnect(oldConnections, newId) {
     // TODO 当节点Id变化时修改连接
-    console.log({ newEps, oldEps })
+    // console.log({ oldConnections, newId })
+    window.oldConnections = oldConnections
+    const [source, target] = oldConnections
+    if (source && source.length) {
+      source.forEach(conn => {
+        const meta = conn.getData()
+        meta.From = newId
+        this.context.connectEdgeByConfig(meta)
+      })
+    }
+    if (target && target.length) {
+      target.forEach(conn => {
+        const meta = conn.getData()
+        meta.To = newId
+        this.context.connectEdgeByConfig(meta)
+      })
+    }
   }
 }
