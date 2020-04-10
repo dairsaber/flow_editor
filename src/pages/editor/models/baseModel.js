@@ -53,7 +53,7 @@ export default class BaseModel {
     const oldTargetConnections = this.context.jsPlumb.getConnections({
       target: this.id
     })
-    this.data.meta = { ...this.data.meta, ...obj }
+    this.data.meta = obj
     if (this.id !== obj.id) {
       this.id = obj.Id
       this.context.jsPlumb.setId(this.currentEle, this.id)
@@ -70,9 +70,7 @@ export default class BaseModel {
     this.setPoint()
   }
   reConnect(oldConnections, newId) {
-    // TODO 当节点Id变化时修改连接
-    // console.log({ oldConnections, newId })
-    window.oldConnections = oldConnections
+    // 当节点Id变化时修改连接
     const [source, target] = oldConnections
     if (source && source.length) {
       source.forEach(conn => {

@@ -26,11 +26,13 @@ export default {
     // await flow.init('/flowData/test.json')
     await flow.init()
     this.selected = flow.selected
+    this.selectedEdges = flow.selectedEdges
   },
   methods: {
     // 节点移除后要做的事情
-    handleAfterNodeRemove(model, node) {
-      console.log({ model, node })
+    handleAfterNodeRemove() {
+      // console.log({ model, node })
+      flow.unSelectAll()
     },
     //拖动添加节点
     onDrop(type, evt) {

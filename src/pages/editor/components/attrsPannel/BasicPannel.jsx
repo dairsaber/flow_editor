@@ -12,20 +12,27 @@ export default {
     item: Object
   },
   data() {
-    return { meta: {} }
+    return { meta: {}, other: '', jsonError: false }
   },
   watch: {
     item: {
       immediate: true,
       handler(val) {
         this.meta = val.data.meta || {}
+        const { Name, Id, Type, ...other } = this.meta
+        this.other = JSON.stringify(other || {})
       }
     }
   },
   methods: {
     handleChange(key, value) {
       const oldValue = this.meta
-      this.meta = { ...this.meta, [key]: value }
+      const { Name, Id, Type, ...other } = this.meta
+      if (key === 'other') {
+        this.other = value
+      } else {
+        this.meta = { ...this.meta, [key]: value }
+      }
       myDebounce.go(() => {
         if (key === 'Id') {
           const isExist = this.flow.models.some(x => x.id === value)
@@ -34,6 +41,28 @@ export default {
             this.meta = oldValue
             return
           }
+        } else if (key === 'other') {
+          let newOtherData = {}
+          try {
+            newOtherData = JSON.parse(value)
+            this.jsonError = false
+          } catch (error) {
+            this.jsonError = true
+            return
+          }
+          const originKeys = Object.keys(other)
+          const newKeys = Object.keys(newOtherData)
+          const allKeys = [...new Set(originKeys.concat(newKeys))]
+          const newValues = allKeys.reduce((prev, current) => {
+            const currentValue = newOtherData[current]
+            if (currentValue !== undefined) {
+              return { ...prev, [current]: newOtherData[current] }
+            } else {
+              delete this.meta[current]
+              return prev
+            }
+          }, {})
+          this.meta = { ...this.meta, ...newValues }
         }
         this.item.updateMeta(this.meta)
       })
@@ -41,7 +70,7 @@ export default {
   },
   render() {
     const item = this.item
-    const { Name, Id, Type, ...other } = this.meta
+    const { Name, Id, Type } = this.meta
     return (
       <div class={getClassName('basic-pannel')}>
         <Card title="基本属性">
@@ -83,8 +112,9 @@ export default {
           <p>
             <div style="width:3rem;text-align:right">其他：</div>
             <Input.TextArea
+              class={{ 'input-error': this.jsonError }}
               rows={10}
-              value={JSON.stringify(other)}
+              value={this.other}
               onChange={({ target: { value } }) => {
                 this.handleChange('other', value)
               }}
