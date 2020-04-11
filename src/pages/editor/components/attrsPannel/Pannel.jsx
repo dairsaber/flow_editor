@@ -1,6 +1,6 @@
-/* eslint-disable no-debugger */
 import BasicPannel from './BasicPannel'
 import BasicEdgePannel from './BasicEdgePannel'
+// const width = 300
 export default {
   props: {
     selected: Array,
@@ -49,14 +49,14 @@ export default {
   methods: {
     getEdgePannel(pannel) {
       return (
-        <div style="width:240px;background-color:white;border-radius:4px 0 0 4px;border-left:1px solid #eee">
+        <div style="width:300px;background-color:white;border-radius:4px 0 0 4px;border-left:1px solid #eee">
           {pannel}
         </div>
       )
     },
     getPannel(customPannel, basicPannel) {
       return (
-        <div style="width:240px;background-color:white;border-radius:4px 0 0 4px;border-left:1px solid #eee">
+        <div style="width:300px;background-color:white;border-radius:4px 0 0 4px;border-left:1px solid #eee">
           {[customPannel, basicPannel]}
         </div>
       )
@@ -66,3 +66,4 @@ export default {
     return this.pannel
   }
 }
+ 

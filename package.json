@@ -13,8 +13,11 @@
     "aftool": "^1.3.0",
     "ant-design-vue": "^1.4.12",
     "axios": "^0.19.2",
+    "codemirror": "^5.52.2",
     "core-js": "^3.6.4",
+    "jsonlint": "^1.6.3",
     "jsplumb": "^2.12.14",
+    "script-loader": "^0.7.2",
     "vue": "^2.6.11"
   },
   "devDependencies": {

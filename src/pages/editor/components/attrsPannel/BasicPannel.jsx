@@ -5,6 +5,7 @@ import { Tag, Input } from 'ant-design-vue'
 import { error } from '../../utils/tips'
 import { getClassName } from '../../utils/cssNameSpace'
 import { Debounce } from 'aftool'
+import JsonEditor from '../JsonEditor'
 const myDebounce = new Debounce()
 export default {
   inject: ['flow'],
@@ -12,7 +13,7 @@ export default {
     item: Object
   },
   data() {
-    return { meta: {}, other: '', jsonError: false }
+    return { meta: {}, other: {} }
   },
   watch: {
     item: {
@@ -20,7 +21,7 @@ export default {
       handler(val) {
         this.meta = val.data.meta || {}
         const { Name, Id, Type, ...other } = this.meta
-        this.other = JSON.stringify(other || {})
+        this.other = other || {}
       }
     }
   },
@@ -28,9 +29,7 @@ export default {
     handleChange(key, value) {
       const oldValue = this.meta
       const { Name, Id, Type, ...other } = this.meta
-      if (key === 'other') {
-        this.other = value
-      } else {
+      if (key !== 'other') {
         this.meta = { ...this.meta, [key]: value }
       }
       myDebounce.go(() => {
@@ -42,14 +41,7 @@ export default {
             return
           }
         } else if (key === 'other') {
-          let newOtherData = {}
-          try {
-            newOtherData = JSON.parse(value||{})
-            this.jsonError = false
-          } catch (error) {
-            this.jsonError = true
-            return
-          }
+          let newOtherData = value || {}
           const originKeys = Object.keys(other)
           const newKeys = Object.keys(newOtherData)
           const allKeys = [...new Set(originKeys.concat(newKeys))]
@@ -66,11 +58,14 @@ export default {
         }
         this.item.updateMeta(this.meta)
       })
+    },
+    fullJsonEditor() {
+      this.$refs['jsonEditor'].full()
     }
   },
   render() {
     const item = this.item
-    const { Name, Id, Type } = this.meta
+    const { Name, Id } = this.meta
     return (
       <div class={getClassName('basic-pannel')}>
         <Card title="节点基本属性">
@@ -110,12 +105,22 @@ export default {
             </div>
           </p>
           <p>
-            <div style="width:3rem;text-align:right">其他：</div>
-            <Input.TextArea
-              class={{ 'input-error': this.jsonError }}
-              rows={10}
+            <div style="display:flex">
+              <div style="width:3rem;text-align:right">其他：</div>
+              <Tag
+                style="float:right"
+                onClick={this.fullJsonEditor}
+                color="blue"
+              >
+                全屏编辑
+              </Tag>
+            </div>
+          </p>
+          <p>
+            <JsonEditor
+              ref="jsonEditor"
               value={this.other}
-              onChange={({ target: { value } }) => {
+              onChange={value => {
                 this.handleChange('other', value)
               }}
             />
