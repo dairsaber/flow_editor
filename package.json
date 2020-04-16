@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "pro": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build",
+    "build-editor": "vue-cli-service build --target wc --name w-flow src/App.jsx",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
