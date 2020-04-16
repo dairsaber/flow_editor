@@ -155,7 +155,7 @@ export class Flow {
   }
   //解析连接配置 连接节点
   connectEdgeByConfig(config) {
-    const { From, To, Name } = config
+    const { From, To } = config
     const connection = this.jsPlumb.connect({
       uuids: [`${From}.from`, `${To}.to`]
     })
@@ -163,7 +163,19 @@ export class Flow {
     connection.setData(config)
     this.edges.add(connection)
   }
-  //
+  //校验连接是不是合法
+  validateConnection(info) {
+    const [sourceEndpoint] = info.connection.endpoints
+    const targetEndpoint = info.dropEndpoint
+    const sourceUuid = sourceEndpoint.getUuid()
+    const targetUuid = targetEndpoint.getUuid()
+    const isOk = !this.existSameEdge(sourceUuid, targetUuid)
+    if (!isOk) {
+      error('不能重复连接相同的节点')
+    }
+    return isOk
+  }
+  //在节点选择改变之后
   afterNodeSelectedChange(active) {
     if (active) {
       this.resetEdgesStyle()
@@ -217,6 +229,7 @@ export class Flow {
   //移除边之后的操作
   deleteEdge(conn) {
     this.edges.delete(conn)
+    this.selectedEdges = []
   }
   //边选择
   selectEdge(conn) {

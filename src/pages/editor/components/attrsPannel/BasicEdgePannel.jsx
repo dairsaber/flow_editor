@@ -21,14 +21,14 @@ export default {
       handler(val) {
         if (!val) return
         this.edgeData = val.getData() || {}
-        const { From, To, Name, ...other } = this.edgeData
+        const { From, To, ...other } = this.edgeData
         this.other = other || {}
       }
     }
   },
   methods: {
     handleChange(key, value) {
-      const { From, To, Name, ...other } = this.edgeData
+      const { From, To, ...other } = this.edgeData
       if (key !== 'other') {
         this.edgeData = { ...this.edgeData, [key]: value }
       }
@@ -57,13 +57,12 @@ export default {
     }
   },
   render() {
-    const { From, To, Name } = this.edgeData
+    const { From, To } = this.edgeData
     return (
       <div class={getClassName('basic-pannel')}>
         <Card title="边基本属性">
           <p>From：{From}</p>
           <p>To：{To}</p>
-          <p>类型：{Name}</p>
         </Card>
         <Card title="元数据">
           <p>

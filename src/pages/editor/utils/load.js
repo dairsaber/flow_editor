@@ -95,6 +95,10 @@ export function registerEvents(context) {
   context.jsPlumb.bind('connection', info => {
     context.addEdge(info)
   })
+  //连接线连接时
+  context.jsPlumb.bind('beforeDrop', info => {
+    return context.validateConnection(info)
+  })
   // //连接建立之前
   // context.jsPlumb.bind('beforeDrop', info => {
   //   // context.addEdge(info)
