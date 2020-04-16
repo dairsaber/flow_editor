@@ -22,23 +22,9 @@ export class GatewayModel extends BaseModel {
           }
         },
         {
-          code: '通过',
           anchor: {
             ...configTool.defaultAnchor,
-            anchor: 'Left',
-            maxConnections: 1
-          },
-          endpoint: {
-            ...configTool.defaultSourceEndpoint,
-            dragAllowedWhenFull: false
-          }
-        },
-        {
-          code: '不通过',
-          anchor: {
-            ...configTool.defaultAnchor,
-            anchor: 'Right',
-            maxConnections: 1
+            anchor: 'Bottom'
           },
           endpoint: {
             ...configTool.defaultSourceEndpoint,

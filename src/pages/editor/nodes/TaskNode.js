@@ -25,7 +25,7 @@ export class TaskNode extends BaseNode {
         on: {
           dblclick: this.remove,
           mouseup: this.updatePosition,
-          click: this.hanldSelect
+          click: this.handleSelect
         }
       },
       childName

@@ -156,9 +156,8 @@ export class Flow {
   //解析连接配置 连接节点
   connectEdgeByConfig(config) {
     const { From, To, Name } = config
-    const fromUuid = Name ? `${From}.${Name}` : `${From}.from`
     const connection = this.jsPlumb.connect({
-      uuids: [fromUuid, `${To}.to`]
+      uuids: [`${From}.from`, `${To}.to`]
     })
     if (!connection) return
     connection.setData(config)
@@ -198,12 +197,6 @@ export class Flow {
     const { sourceEndpoint, targetEndpoint, connection } = info
     const sourceUuid = sourceEndpoint.getUuid()
     const targetUuid = targetEndpoint.getUuid()
-    // const isExist = this.existSameEdge(sourceUuid, targetUuid)
-    // if (isExist) {
-    //   this.jsPlumb.deleteConnection(connection)
-    //   error('不能连接相同节点')
-    //   return
-    // }
     const [sourceId, code] = sourceUuid.split('.')
     const [targetId] = targetUuid.split('.')
     let edge = { From: sourceId, To: targetId }

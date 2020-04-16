@@ -3,6 +3,8 @@
 import * as nodesModel from '../models'
 import { CONTAINER_ID, GRID } from '../config'
 import { confirm } from './tips'
+import { Debounce } from 'aftool'
+const myDebounce = new Debounce()
 //1
 export function createNodesModel(context, config = {}) {
   const { Events = [], Gateways = [], Tasks = [], Position = {} } = config
@@ -82,7 +84,7 @@ export function initEndpoints(context, models) {
 //TODO 4 建立连接
 export function connectNodes(context, config) {
   const { Transitions } = config
-  if (!Transitions) return 
+  if (!Transitions) return
   Transitions.forEach(item => {
     context.connectEdgeByConfig(item)
   })
@@ -103,10 +105,12 @@ export function registerEvents(context) {
     context.deleteEdge(info.connection)
   })
   // 双击了连接线,
-  context.jsPlumb.bind('dblclick', async conn => {
-    if (await confirm('删除提示', '确定删除此链接吗？')) {
-      context.jsPlumb.deleteConnection(conn)
-    }
+  context.jsPlumb.bind('dblclick', conn => {
+    myDebounce.go(async () => {
+      if (await confirm('删除提示', '确定删除此链接吗？')) {
+        context.jsPlumb.deleteConnection(conn)
+      }
+    }, 100)
   })
   // 单击了连接线,
   context.jsPlumb.bind('click', async conn => {

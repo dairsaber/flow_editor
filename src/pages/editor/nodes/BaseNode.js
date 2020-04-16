@@ -61,7 +61,7 @@ export class BaseNode {
     this.model.context.afterNodeSelectedChange(active, this.model)
   }
   //处理节点被点击之后的事件
-  hanldSelect = (ele, evt) => {
+  handleSelect = (ele, evt) => {
     const multiple = this.model.context.multiple
     this.selectedChange(!this.selected, multiple)
     evt.stopPropagation()

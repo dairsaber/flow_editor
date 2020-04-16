@@ -19,7 +19,7 @@ export class StartNode extends BaseNode {
         on: {
           dblclick: this.remove,
           mouseup: this.updatePosition,
-          click: this.hanldSelect
+          click: this.handleSelect
         }
       },
       '开始'

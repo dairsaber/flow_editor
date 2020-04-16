@@ -19,10 +19,10 @@ export class GatewayNode extends BaseNode {
         on: {
           dblclick: this.remove,
           mouseup: this.updatePosition,
-          click: this.hanldSelect
+          click: this.handleSelect
         }
       },
-      `<div>通过</div><div>不通过</div>`
+      `<div>网关</div>`
     )
   }
 }
